@@ -6,8 +6,23 @@ using System.Threading.Tasks;
 
 namespace Domain
 {
-    class Transaction: Entity
+    public class Transaction: Entity
     {
-        private double _value;
+        public Transaction (double value, TransactionCategory category, Wallet walletid)
+        {
+            Value = value;
+            TransactionCategoryID = category;
+            WallletID = walletid;
+        }
+
+        [Obsolete]
+        protected Transaction()
+        {
+
+        }
+
+        public virtual double Value { get; protected set; }
+        public virtual TransactionCategory TransactionCategoryID { get; protected set; }
+        public virtual Wallet WallletID { get; protected set; }
     }
 }

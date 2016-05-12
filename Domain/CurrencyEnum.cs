@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Domain
 {
-    enum CurrencyEnum
+    public enum CurrencyEnum
     {
         RUB,
         EUR,

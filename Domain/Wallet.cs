@@ -6,15 +6,24 @@ using System.Threading.Tasks;
 
 namespace Domain
 {
-    class Wallet: Entity
+    public class Wallet : Entity
     {
-        public Wallet ()
+        public Wallet(Account account, CurrencyEnum currency, double amount, bool defaultW)
         {
-
+            Account = account;
+            Currency = currency;
+            Amount = amount;
+            DefaultWallet = defaultW;
         }
 
-        public CurrencyEnum currency{ get; protected set;}
-        public double amount { get; protected set; }
-        public bool defaultWallet { get; protected set; }
+        [Obsolete]
+        protected Wallet()
+        {
+        }
+
+        public virtual Account Account { get; protected set; }
+        public virtual CurrencyEnum Currency { get; protected set; }
+        public virtual double Amount { get; protected set; }
+        public virtual bool DefaultWallet { get; protected set; }
     }
 }

@@ -4,11 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Domain
+namespace Factory
 {
-    public enum TransactionTypeEnum
+    public class Class1
     {
-        Income,
-        Expence
     }
 }

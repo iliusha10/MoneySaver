@@ -14,7 +14,7 @@ namespace Domain.Mapping
             Map(x => x.Email).Not.Nullable();
             Map(x => x.Password).Not.Nullable();
             Map(x => x.CreatedDate).Not.Nullable();
-            HasMany(x => x.Wallets).LazyLoad().Inverse();
+            HasMany(x => x.Wallets).LazyLoad().Cascade.All().Inverse();
         }
     }
 }

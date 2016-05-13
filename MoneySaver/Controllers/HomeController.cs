@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Domain;
+using Factory;
+using Repository.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,6 +11,18 @@ namespace MoneySaver.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly IAccountRepository _accountRepository;
+
+        [Obsolete]
+        public HomeController()
+        {
+        }
+
+        public HomeController (IAccountRepository accountRepository)
+        {
+            _accountRepository = accountRepository;
+        }
+
         public ActionResult Index()
         {
             ViewBag.Message = "Modify this template to jump-start your ASP.NET MVC application.";
@@ -31,9 +46,10 @@ namespace MoneySaver.Controllers
 
         public ActionResult Create()
         {
-                
+            var account = AccountFactory.CreateAccount("ShaD", "iliusha10@gmail.com", "123456789", Domain.CurrencyEnum.EUR);
+            _accountRepository.Save<Account>(account);
 
-            return View();
+            return Redirect("Index");
         }
     }
 }

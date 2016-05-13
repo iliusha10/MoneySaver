@@ -11,6 +11,8 @@ namespace Domain.Mapping
         public TransactionMap()
         {
             Map(x => x.Value).Not.Nullable();
+            //Map(x => x.WallletID).Not.Nullable();
+            //Map(x => x.TransactionCategoryID).Not.Nullable();
             HasOne(x => x.WallletID).LazyLoad();
             HasOne(x => x.TransactionCategoryID).LazyLoad();
         }

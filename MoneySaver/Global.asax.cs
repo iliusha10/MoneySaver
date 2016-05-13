@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Castle.Windsor;
+using HibernatingRhinos.Profiler.Appender.NHibernate;
+using MoneySaver.Infrastructure;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -12,17 +15,25 @@ namespace MoneySaver
     // Note: For instructions on enabling IIS6 or IIS7 classic mode, 
     // visit http://go.microsoft.com/?LinkId=9394801
 
-    public class MvcApplication : System.Web.HttpApplication
+    public class MvcApplication : HttpApplication
     {
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
-
             WebApiConfig.Register(GlobalConfiguration.Configuration);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             AuthConfig.RegisterAuth();
+
+            NHibernateProfiler.Initialize();
+
+            var container = new WindsorContainer();
+            container.Install(new ApplicationCastleInstaller());
+            //create controler factory
+            var castleControllerFactory = new CastleControlerFactory(container);
+            //add the controller factory into mvc web request pipeline
+            ControllerBuilder.Current.SetControllerFactory(castleControllerFactory);
         }
     }
 }

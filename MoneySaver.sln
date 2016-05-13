@@ -25,6 +25,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Utils", "Utils\Utils.csproj", "{BA41E532-B7F5-4E6C-8741-50D9E34E5238}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Factory", "Factory\Factory.csproj", "{6500ECFE-BCC4-43EF-A86C-A28B0654C243}"
+	ProjectSection(ProjectDependencies) = postProject
+		{7521FE00-E995-4E56-8C56-2A59B0C66F18} = {7521FE00-E995-4E56-8C56-2A59B0C66F18}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

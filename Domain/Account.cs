@@ -26,5 +26,10 @@ namespace Domain
         public virtual string Password { get; protected set; }
         public virtual DateTime CreatedDate { get; protected set; }
         public virtual IList<Wallet> Wallets { get; protected set; }
+
+        public virtual void AddWallet(Wallet wallet)
+        {
+            this.Wallets = new List<Wallet> { wallet };
+        }
     }
 }

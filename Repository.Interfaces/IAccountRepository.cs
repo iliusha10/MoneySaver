@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Factory
+namespace Repository.Interfaces
 {
-    public class Class1
+    public interface IAccountRepository: IRepository
     {
     }
 }

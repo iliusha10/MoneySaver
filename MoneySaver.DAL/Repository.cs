@@ -1,12 +1,8 @@
 ﻿using NHibernate;
 using MoneySaver.DAL.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MoneySaver.Domain;
 using MoneySaver.Utils;
+using FluentNHibernate.Data;
+using System;
 
 
 namespace MoneySaver.DAL

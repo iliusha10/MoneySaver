@@ -15,7 +15,7 @@
     <AssemblyName>Service</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <WcfConfigValidationEnabled>True</WcfConfigValidationEnabled>
-    <UseIISExpress>true</UseIISExpress>
+    <UseIISExpress>false</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
@@ -40,6 +40,23 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\CommonServiceLocator.1.3\lib\portable-net4+sl5+netcore45+wpa81+wp8\Microsoft.Practices.ServiceLocation.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=6d32ff45e0ccc69f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.4.0.1\lib\net45\Microsoft.Practices.Unity.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.Configuration, Version=4.0.0.0, Culture=neutral, PublicKeyToken=6d32ff45e0ccc69f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.4.0.1\lib\net45\Microsoft.Practices.Unity.Configuration.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.RegistrationByConvention, Version=4.0.0.0, Culture=neutral, PublicKeyToken=6d32ff45e0ccc69f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.4.0.1\lib\net45\Microsoft.Practices.Unity.RegistrationByConvention.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.ServiceModel.Activation" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -57,21 +74,33 @@
     <Reference Include="System.Web.Services" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
+    <Reference Include="Unity.Wcf, Version=2.0.5849.32640, Culture=neutral, PublicKeyToken=525d148222f4b6a3, processorArchitecture=MSIL">
+      <HintPath>..\packages\UnityWCF.2.0.5849.32640\lib\net40\Unity.Wcf.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="AccountService.svc" />
-    <Content Include="Web.config" />
+    <Content Include="Global.asax" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AccountService.svc.cs">
       <DependentUpon>AccountService.svc</DependentUpon>
     </Compile>
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="InitBLL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="packages.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -80,6 +109,26 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\MoneySaver.BLL.Interfaces\MoneySaver.BLL.Interfaces.csproj">
+      <Project>{e6e9a1f1-ba58-47ba-b33b-b940bcfba10e}</Project>
+      <Name>MoneySaver.BLL.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MoneySaver.BLL\MoneySaver.BLL.csproj">
+      <Project>{01accc23-1b22-4923-901f-ac428a378e19}</Project>
+      <Name>MoneySaver.BLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MoneySaver.DAL.Interfaces\MoneySaver.DAL.Interfaces.csproj">
+      <Project>{8d8e65c1-8966-4d4a-baf1-4ede6c5e6dea}</Project>
+      <Name>MoneySaver.DAL.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MoneySaver.DAL\MoneySaver.DAL.csproj">
+      <Project>{8b3a1af1-d3cc-41c8-80b7-0efc4b5cfcdf}</Project>
+      <Name>MoneySaver.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MoneySaver.DependancyInjection\MoneySaver.DependancyInjection.csproj">
+      <Project>{c33064b2-48cc-45f7-ab37-a495f59c02c5}</Project>
+      <Name>MoneySaver.DependancyInjection</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MoneySaver.Service.Interfaces\MoneySaver.Service.Interfaces.csproj">
       <Project>{08ebcc53-effc-4850-b78f-ecb5e5ab02e9}</Project>
       <Name>MoneySaver.Service.Interfaces</Name>
@@ -100,7 +149,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>60376</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:60376/</IISUrl>
+          <IISUrl>http://localhost:81/MSService</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

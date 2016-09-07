@@ -31,6 +31,7 @@ namespace MoneySaver.DAL
                 .Database(MsSqlConfiguration.MsSql2012
                 .ConnectionString(builder => builder.Database("MoneySaver")
                 .Server(@"MDDSK40107")
+                //.Username("ShaD").Password("1234")
                 .TrustedConnection()
                 ))
                 .Mappings(x => x.FluentMappings.AddFromAssembly(typeof(EntityMap<>).Assembly))

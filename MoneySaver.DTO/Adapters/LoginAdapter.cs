@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MoneySaver.BLL.Interfaces
+namespace MoneySaver.DTO.Adapters
 {
-    public class Class1
+    public class LoginAdapter
     {
     }
 }

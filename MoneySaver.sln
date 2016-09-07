@@ -25,6 +25,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoneySaver.Utils", "MoneySa
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoneySaver.Service.Interfaces", "MoneySaver.Service.Interfaces\MoneySaver.Service.Interfaces.csproj", "{08EBCC53-EFFC-4850-B78F-ECB5E5AB02E9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoneySaver.DependancyInjection", "MoneySaver.DependancyInjection\MoneySaver.DependancyInjection.csproj", "{C33064B2-48CC-45F7-AB37-A495F59C02C5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoneySaver.DTO", "MoneySaver.DTO\MoneySaver.DTO.csproj", "{C29434BF-5129-4D39-9C55-788F8E62BBDB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -75,6 +79,14 @@ Global
 		{08EBCC53-EFFC-4850-B78F-ECB5E5AB02E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{08EBCC53-EFFC-4850-B78F-ECB5E5AB02E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{08EBCC53-EFFC-4850-B78F-ECB5E5AB02E9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C33064B2-48CC-45F7-AB37-A495F59C02C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C33064B2-48CC-45F7-AB37-A495F59C02C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C33064B2-48CC-45F7-AB37-A495F59C02C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C33064B2-48CC-45F7-AB37-A495F59C02C5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C29434BF-5129-4D39-9C55-788F8E62BBDB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C29434BF-5129-4D39-9C55-788F8E62BBDB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C29434BF-5129-4D39-9C55-788F8E62BBDB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C29434BF-5129-4D39-9C55-788F8E62BBDB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

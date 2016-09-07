@@ -20,15 +20,10 @@ namespace MoneySaver.Controllers
     {
         private readonly IAccountService _accountService;
 
-        [Obsolete]
-        public AccountController()
+        public AccountController(IAccountService accountService)
         {
+            _accountService = accountService;
         }
-
-        //public AccountController(IAccountRepository accountRepository)
-        //{
-        //    _accountRepository = accountRepository;
-        //}
 
         //
         // GET: /Account/Login
@@ -45,14 +40,20 @@ namespace MoneySaver.Controllers
         // POST: /Account/Login
 
         [HttpPost]
-        //[AllowAnonymous]
+        [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public ActionResult Login(LoginModel model, string returnUrl)
         {
             if (ModelState.IsValid)
             {
-                //_accountRepository
-                return RedirectToLocal(returnUrl);
+
+                if (_accountService.Login(model.Email, model.Password))
+                    return RedirectToLocal(returnUrl);
+                else
+                {
+                    ModelState.AddModelError("", "The user name or password provided is incorrect.");
+                    return View(model);
+                }
             }
 
             // If we got this far, something failed, redisplay form

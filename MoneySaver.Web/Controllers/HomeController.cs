@@ -7,6 +7,7 @@ using System.Web.Mvc;
 
 namespace MoneySaver.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
         private readonly IAccountService _accountService;

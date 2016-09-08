@@ -11,31 +11,41 @@ using System.Threading.Tasks;
 
 namespace MoneySaver.DAL
 {
-    public class AccountRepository : IAccountRepository
+    public class AccountRepository : Repository, IAccountRepository
     {
-        protected readonly ISession _session;
-        private readonly ISessionManager _sessionManager;
-
         public AccountRepository(ISessionManager sessionManager)
+            : base(sessionManager)
         {
-            _sessionManager = sessionManager;
-            _session = _sessionManager.GetSession();
         }
 
         public LoginDto GetCredentialsByEmail(string email)
         {
-            Credentials credentials = null;
-            LoginDto row = null;
+            using (var tran = _session.BeginTransaction())
+            {
+                try
+                {
+                    Credentials credentials = null;
+                    LoginDto row = null;
 
-            var result = _session.QueryOver(() => credentials)
-                .Where(() => credentials.Email == email)
-                    .SelectList(l => l
-                        .Select(() => credentials.Email).WithAlias(() => row.Email)
-                        .Select(() => credentials.Password).WithAlias(() => row.Password));
-                    
+                    var result = _session.QueryOver(() => credentials)
+                        .Where(() => credentials.Email == email)
+                            .SelectList(l => l
+                                .Select(() => credentials.Email).WithAlias(() => row.Email)
+                                .Select(() => credentials.Password).WithAlias(() => row.Password));
 
-            return result.TransformUsing(Transformers.AliasToBean<LoginDto>())
-                .SingleOrDefault<LoginDto>();
+
+                    return result.TransformUsing(Transformers.AliasToBean<LoginDto>())
+                        .SingleOrDefault<LoginDto>();
+                    tran.Commit();
+                    //Logger.SaveMediaFileLog(playlist.PlaylistName);
+                }
+                catch (Exception ex)
+                {
+                    //Logger.AddToLog("Failed to add media file.", ex);
+                    tran.Rollback();
+                    return new LoginDto();
+                }
+            }
         }
 
 

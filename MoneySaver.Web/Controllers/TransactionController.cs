@@ -6,6 +6,7 @@ using System.Web.Mvc;
 
 namespace MoneySaver.Controllers
 {
+    [Authorize]
     public class TransactionController : Controller
     {
         //

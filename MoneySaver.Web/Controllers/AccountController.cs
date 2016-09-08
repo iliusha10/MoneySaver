@@ -44,21 +44,38 @@ namespace MoneySaver.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Login(LoginModel model, string returnUrl)
         {
-            if (ModelState.IsValid)
-            {
+            //if (ModelState.IsValid)
+            //{
 
-                if (_accountService.Login(model.Email, model.Password))
-                    return RedirectToLocal(returnUrl);
-                else
-                {
-                    ModelState.AddModelError("", "The user name or password provided is incorrect.");
-                    return View(model);
-                }
+            //    if (_accountService.Login(model.Email, model.Password))
+            //        return RedirectToLocal(returnUrl);
+            //    else
+            //    {
+            //        ModelState.AddModelError("", "The user name or password provided is incorrect.");
+            //        return View(model);
+            //    }
+            //}
+            //ModelState.AddModelError("", "The user name or password provided is incorrect.");
+            //return View(model);
+            if (!ModelState.IsValid)
+            {
+                return View(model);
             }
 
-            // If we got this far, something failed, redisplay form
-            ModelState.AddModelError("", "The user name or password provided is incorrect.");
-            return View(model);
+            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+            switch (result)
+            {
+                case SignInStatus.Success:
+                    return RedirectToLocal(returnUrl);
+                case SignInStatus.LockedOut:
+                    return View("Lockout");
+                case SignInStatus.RequiresVerification:
+                    return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
+                case SignInStatus.Failure:
+                default:
+                    ModelState.AddModelError("", "Invalid login attempt.");
+                    return View(model);
+            }
         }
 
         //

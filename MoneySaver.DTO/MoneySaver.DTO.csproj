@@ -41,7 +41,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Adapters\LoginAdapter.cs" />
+    <Compile Include="Objects\CurrencyEnum.cs" />
     <Compile Include="Objects\LoginDto.cs" />
+    <Compile Include="Objects\RegisterDto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

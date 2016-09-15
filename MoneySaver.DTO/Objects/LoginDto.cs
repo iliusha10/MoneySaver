@@ -10,5 +10,8 @@ namespace MoneySaver.DTO
         
         [DataMember]
         public string Password { get; set; }
+
+        [DataMember]
+        public string Nickname { get; set; }
     }
 }

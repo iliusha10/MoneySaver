@@ -143,6 +143,10 @@
       <Project>{c33064b2-48cc-45f7-ab37-a495f59c02c5}</Project>
       <Name>MoneySaver.DependancyInjection</Name>
     </ProjectReference>
+    <ProjectReference Include="..\MoneySaver.DTO\MoneySaver.DTO.csproj">
+      <Project>{c29434bf-5129-4d39-9c55-788f8e62bbdb}</Project>
+      <Name>MoneySaver.DTO</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MoneySaver.Service.Interfaces\MoneySaver.Service.Interfaces.csproj">
       <Project>{08ebcc53-effc-4850-b78f-ecb5e5ab02e9}</Project>
       <Name>MoneySaver.Service.Interfaces</Name>

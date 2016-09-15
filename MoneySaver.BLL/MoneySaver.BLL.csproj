@@ -94,6 +94,10 @@
       <Project>{c29434bf-5129-4d39-9c55-788f8e62bbdb}</Project>
       <Name>MoneySaver.DTO</Name>
     </ProjectReference>
+    <ProjectReference Include="..\MoneySaver.Factory\MoneySaver.Factory.csproj">
+      <Project>{6500ecfe-bcc4-43ef-a86c-a28b0654c243}</Project>
+      <Name>MoneySaver.Factory</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

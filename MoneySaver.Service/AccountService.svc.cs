@@ -1,4 +1,5 @@
 ﻿using MoneySaver.BLL.Interfaces;
+using MoneySaver.DTO;
 using MoneySaver.Service.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -18,11 +19,26 @@ namespace MoneySaver.Service
             _accountBll = accountBll;
         }
 
-        public bool Login(string email, string pass)
+        public LoginDto Login(string email, string pass)
         {
             try   
             {  
-                return _accountBll.Login(email, pass);
+                var user = _accountBll.Login(email, pass);
+                return user;
+            }
+            catch (Exception ex)
+            {
+                throw new FaultException(ex.Message);
+            }
+        }
+
+
+        public void Register()
+        {
+            try
+            {
+                _accountBll.Register();
+                return;
             }
             catch (Exception ex)
             {

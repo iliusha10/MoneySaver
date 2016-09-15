@@ -43,6 +43,12 @@
     <Compile Include="IAccountService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MoneySaver.DTO\MoneySaver.DTO.csproj">
+      <Project>{c29434bf-5129-4d39-9c55-788f8e62bbdb}</Project>
+      <Name>MoneySaver.DTO</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

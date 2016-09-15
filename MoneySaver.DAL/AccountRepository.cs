@@ -31,7 +31,8 @@ namespace MoneySaver.DAL
                         .Where(() => credentials.Email == email)
                             .SelectList(l => l
                                 .Select(() => credentials.Email).WithAlias(() => row.Email)
-                                .Select(() => credentials.Password).WithAlias(() => row.Password));
+                                .Select(() => credentials.Password).WithAlias(() => row.Password)
+                                .Select(() => credentials.Nickname).WithAlias(() => row.Nickname));
 
 
                     return result.TransformUsing(Transformers.AliasToBean<LoginDto>())

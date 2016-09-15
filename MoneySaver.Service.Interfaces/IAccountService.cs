@@ -1,4 +1,5 @@
-﻿using System.ServiceModel;
+﻿using MoneySaver.DTO;
+using System.ServiceModel;
 
 namespace MoneySaver.Service.Interfaces
 {
@@ -6,6 +7,9 @@ namespace MoneySaver.Service.Interfaces
     public interface IAccountService
     {
         [OperationContract]
-        bool Login(string email, string pass);
+        LoginDto Login(string email, string pass);
+
+        [OperationContract]
+        void Register();
     }
 }

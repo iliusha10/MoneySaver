@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MoneySaver.DTO;
+using MoneySaver.DTO.Objects;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,7 +15,13 @@ namespace MoneySaver.BLL.Interfaces
         /// </summary>
         /// <param name="email"></param>
         /// <param name="pass"></param>
-        /// <returns>true/false</returns>
-        bool Login(string email, string pass);
+        /// <returns>LoginDto</returns>
+        LoginDto Login(string email, string pass);
+
+        /// <summary>
+        /// Registering user
+        /// </summary>
+        /// <param name="user"></param>
+        void Register(RegisterDto user);
     }
 }

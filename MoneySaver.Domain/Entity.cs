@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace MoneySaver.Domain
 {
-    public abstract class Entity
+    public abstract class Entity: FluentNHibernate.Data.Entity
     {
         public virtual long Version { get; protected set; }
 

@@ -1,5 +1,6 @@
 ﻿using MoneySaver.BLL.Interfaces;
 using MoneySaver.DTO;
+using MoneySaver.DTO.Objects;
 using MoneySaver.Service.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -33,11 +34,11 @@ namespace MoneySaver.Service
         }
 
 
-        public void Register()
+        public void Register(RegisterDto user)
         {
             try
             {
-                _accountBll.Register();
+                _accountBll.Register(user);
                 return;
             }
             catch (Exception ex)

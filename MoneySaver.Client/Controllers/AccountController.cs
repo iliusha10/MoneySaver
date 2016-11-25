@@ -79,13 +79,13 @@ namespace MoneySaver.Client.Controllers
             if (ModelState.IsValid)
             {
 
-                if (_accountService.Login(model.Email, model.Password))
-                    return RedirectToLocal(returnUrl);
-                else
-                {
-                    ModelState.AddModelError("", "The user name or password provided is incorrect.");
-                    return View(model);
-                }
+                //if (_accountService.Login(model.Email, model.Password))
+                //    return RedirectToLocal(returnUrl);
+                //else
+                //{
+                //    ModelState.AddModelError("", "The user name or password provided is incorrect.");
+                //    return View(model);
+                //}
             }
             ModelState.AddModelError("", "The user name or password provided is incorrect.");
             return View(model);

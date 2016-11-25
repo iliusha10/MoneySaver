@@ -3,6 +3,7 @@ using Microsoft.Practices.Unity;
 using Unity.Mvc4;
 using MoneySaver.Service.Interfaces;
 using System.ServiceModel;
+using MoneySaver.Controllers;
 
 namespace MoneySaver
 {
@@ -32,6 +33,8 @@ namespace MoneySaver
             new ContainerControlledLifetimeManager(),
             new InjectionFactory(
                 (c) => new ChannelFactory<IAccountService>("WSHttpBinding_IAccountService").CreateChannel()));
+        //container.RegisterType<AccountController>(new InjectionConstructor());
+        //container.RegisterType<ManageController>(new InjectionConstructor());
     }
   }
 }

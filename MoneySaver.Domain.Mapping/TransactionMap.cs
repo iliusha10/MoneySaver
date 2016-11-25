@@ -11,8 +11,14 @@ namespace MoneySaver.Domain.Mapping
         public TransactionMap()
         {
             Map(x => x.Value).Not.Nullable();
-            References(x => x.WallletID);
-            References(x => x.TransactionCategoryID);
+            Map(x => x.Comment).Nullable();
+            Map(x => x.CreateDate).Not.Nullable();
+            Map(x => x.LoanReturnDate).Nullable();
+            Map(x => x.DoNotExtractFromWallet).Not.Nullable();
+            References(x => x.Walllet);
+            References(x => x.TransactionType);
+            References(x => x.TransactionCategory);
+            References(x => x.TransactionSubcategory);
         }
     }
 }

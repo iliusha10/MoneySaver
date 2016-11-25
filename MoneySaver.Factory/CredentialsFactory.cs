@@ -9,9 +9,9 @@ namespace MoneySaver.Factory
 {
     class CredentialsFactory
     {
-        public static Credentials CreateCredentials(string nickname, string email, string password)
+        public static Credentials CreateCredentials(Account account, string userName, string email, string password)
         {
-            var user = new Credentials(nickname, email, password);
+            var user = new Credentials(account, userName, email, password);
             return user;
         }
     }

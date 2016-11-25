@@ -10,7 +10,8 @@ namespace MoneySaver.Domain.Mapping
     {
         public CredentialsMap()
         {
-            Map(x => x.Nickname).Not.Nullable();
+            References(x => x.Account).Not.Nullable();
+            Map(x => x.UserName).Not.Nullable();
             Map(x => x.Email).Not.Nullable();
             Map(x => x.Password).Not.Nullable();
         }

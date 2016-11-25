@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Runtime.Serialization;
 
 namespace MoneySaver.DTO.Objects
 {
@@ -20,6 +15,15 @@ namespace MoneySaver.DTO.Objects
         public string Password { get; set; }
 
         [DataMember]
-        public CurrencyEnum Currency { get; set; }
+        public long selectedCurrency { get; set; }
+
+        [DataMember]
+        public string WalletName { get; set; }
+
+        [DataMember]
+        public bool defaultWallet { get; set; }
+
+        [DataMember]
+        public WalletTypeDto WalletType { get; set; }
     }
 }

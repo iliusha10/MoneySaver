@@ -7,7 +7,7 @@ using System;
 
 namespace MoneySaver.DAL
 {
-    public abstract class Repository: IRepository
+    public class Repository: IRepository
     {
         protected readonly ISession _session;
         private readonly ISessionManager _sessionManager;
@@ -71,20 +71,18 @@ namespace MoneySaver.DAL
             }
         }
 
-        public TEntity GetEntityById<TEntity>(long id) where TEntity : Entity
+        public TEntity GetById<TEntity>(long id) where TEntity : Entity
         {
             using(var tran = _session.BeginTransaction())
             {
                 try
                 {
                     var res = _session.Get<TEntity>(id);
-                    tran.Commit();
                     return res;
                 }
                 catch(Exception ex)
                 {
                     Logger.AddToLog(ex);
-                    tran.Rollback();
                     return null;
                 }
             }

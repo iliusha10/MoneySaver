@@ -113,7 +113,10 @@ namespace MoneySaver.Controllers
         [HttpGet]
         public ActionResult Register()
         {
-            return View();
+            var newUser = new RegisterModel();
+            newUser.AllCurrencies = GetCurrencies();
+            //ViewData["Currency"] = new SelectList(roles, "Value", "Text");
+            return View(newUser);
         }
 
         //
@@ -128,8 +131,10 @@ namespace MoneySaver.Controllers
             {
                     //var account = AccountFactory.CreateAccount(model.UserName, model.Email, model.Password, model.Currency);
                     //_accountService.Save<Account>(account);
-
-                _accountService.Register();
+                
+                model.defaultWallet = true;
+                var newUser = model.ConvertModelToDto();
+                _accountService.Register(newUser);
                     return RedirectToAction("Index", "Home");
             }
 
@@ -389,6 +394,21 @@ namespace MoneySaver.Controllers
             ChangePasswordSuccess,
             SetPasswordSuccess,
             RemoveLoginSuccess,
+        }
+
+        private IEnumerable<SelectListItem> GetCurrencies()
+        {
+            //Add getting from db currency
+            var allCurrencies = new List<CurrencyModel> {new CurrencyModel ("USD", "US Dolar")};
+            var currency = allCurrencies
+                        .Select(x =>
+                                new SelectListItem
+                                {
+                                    Value = x.Abbreviation,
+                                    Text = x.Name
+                                });
+
+            return new SelectList(currency, "Value", "Text");
         }
 
         //internal class ExternalLoginResult : ActionResult

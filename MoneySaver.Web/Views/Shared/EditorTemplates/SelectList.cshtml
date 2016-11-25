@@ -1,0 +1,30 @@
+﻿@using System.Web.Mvc
+@using System.Web.Mvc.Html
+
+@*@{
+    Layout = "~/Views/Shared/EditorTemplates/_Template.cshtml";
+}*@
+@section Data {
+    @{
+        var model = (Model as IEnumerable<SelectListItem>) ?? (IEnumerable<SelectListItem>) ViewData[ViewData.ModelMetadata.PropertyName];
+        var firstEmptyValue = model.FirstOrDefault(x => string.IsNullOrWhiteSpace(x.Value) && !string.IsNullOrWhiteSpace(x.Text));
+        //var defaultLabel = firstEmptyValue == null ? LocalizationHelper.Localize("Please select ..") : null;
+    }   
+        
+    @{
+        try
+        {
+            @(Html.DropDownListFor(m => m)
+            )
+        }
+        catch
+        {
+            @*@(Html.Kendo().DropDownList()
+            .Name(ViewData.ModelMetadata.PropertyName)
+                .BindTo(model)
+                .OptionLabel(ViewData.ContainsKey("HideDefaultOption") ? null : defaultLabel)
+            )*@
+        }
+}
+    
+}

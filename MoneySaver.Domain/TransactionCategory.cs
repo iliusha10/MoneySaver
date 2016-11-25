@@ -1,4 +1,4 @@
-﻿using System;
+﻿ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,10 +8,10 @@ namespace MoneySaver.Domain
 {
     public class TransactionCategory: Entity
     {
-        public TransactionCategory(string name, TransactionTypeEnum type)
+        public TransactionCategory(string name, Account account)
         {
             CategoryName = name;
-            CategoryType = type;
+            Account = account;
         }
 
         [Obsolete]
@@ -20,6 +20,8 @@ namespace MoneySaver.Domain
         }
 
         public virtual string CategoryName { get; protected set; }
-        public virtual TransactionTypeEnum CategoryType { get; protected set; }
+        public virtual int OrderNumber { get; protected set; }
+        public virtual Account Account { get; protected set; }
+
     }
 }

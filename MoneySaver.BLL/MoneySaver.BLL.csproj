@@ -90,6 +90,10 @@
       <Project>{c33064b2-48cc-45f7-ab37-a495f59c02c5}</Project>
       <Name>MoneySaver.DependancyInjection</Name>
     </ProjectReference>
+    <ProjectReference Include="..\MoneySaver.Domain\MoneySaver.Domain.csproj">
+      <Project>{7521fe00-e995-4e56-8c56-2a59b0c66f18}</Project>
+      <Name>MoneySaver.Domain</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MoneySaver.DTO\MoneySaver.DTO.csproj">
       <Project>{c29434bf-5129-4d39-9c55-788f8e62bbdb}</Project>
       <Name>MoneySaver.DTO</Name>
@@ -97,6 +101,10 @@
     <ProjectReference Include="..\MoneySaver.Factory\MoneySaver.Factory.csproj">
       <Project>{6500ecfe-bcc4-43ef-a86c-a28b0654c243}</Project>
       <Name>MoneySaver.Factory</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MoneySaver.Utils\MoneySaver.Utils.csproj">
+      <Project>{ba41e532-b7f5-4e6c-8741-50d9e34e5238}</Project>
+      <Name>MoneySaver.Utils</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

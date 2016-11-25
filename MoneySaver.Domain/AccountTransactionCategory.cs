@@ -6,22 +6,20 @@ using System.Threading.Tasks;
 
 namespace MoneySaver.Domain
 {
-    public class UserCategoryType: Entity
+    public class AccountTransactionCategory: Entity
     {
-        public UserCategoryType(TransactionCategory categoryid, Account accountid, bool primary)
+        public AccountTransactionCategory(TransactionCategory categoryid, Account accountid)
         {
             TransactioCategoryID = categoryid;
             UserAcountID = accountid;
-            PrimaryCategory = primary;
         }
 
         [Obsolete]
-        protected UserCategoryType()
+        protected AccountTransactionCategory()
         {
         }
 
         public virtual TransactionCategory TransactioCategoryID { get; protected set; }
-        public virtual bool PrimaryCategory { get; protected set; }
         public virtual Account UserAcountID { get; protected set; }
     }
 }

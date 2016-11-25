@@ -11,7 +11,8 @@ namespace MoneySaver.Domain.Mapping
         public TransactionCategoryMap()
         {
             Map(x => x.CategoryName).Not.Nullable();
-            Map(x => x.CategoryType).Not.Nullable();
+            Map(x => x.OrderNumber);
+            References(x => x.Account).Not.Nullable();
         }
     }
 }

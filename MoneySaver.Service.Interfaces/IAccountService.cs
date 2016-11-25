@@ -1,4 +1,5 @@
 ﻿using MoneySaver.DTO;
+using MoneySaver.DTO.Objects;
 using System.ServiceModel;
 
 namespace MoneySaver.Service.Interfaces
@@ -10,6 +11,6 @@ namespace MoneySaver.Service.Interfaces
         LoginDto Login(string email, string pass);
 
         [OperationContract]
-        void Register();
+        void Register(RegisterDto user);
     }
 }

@@ -32,7 +32,7 @@ namespace MoneySaver.DAL
                             .SelectList(l => l
                                 .Select(() => credentials.Email).WithAlias(() => row.Email)
                                 .Select(() => credentials.Password).WithAlias(() => row.Password)
-                                .Select(() => credentials.Nickname).WithAlias(() => row.Nickname));
+                                .Select(() => credentials.UserName).WithAlias(() => row.Nickname));
 
 
                     return result.TransformUsing(Transformers.AliasToBean<LoginDto>())

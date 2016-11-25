@@ -4,11 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MoneySaver.Domain
+namespace MoneySaver.DTO.Adapters
 {
-    public enum TransactionTypeEnum
+    public static class RegisterAdapter
     {
-        Income,
-        Expence
+
     }
 }

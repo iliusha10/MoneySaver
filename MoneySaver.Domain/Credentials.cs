@@ -8,9 +8,10 @@ namespace MoneySaver.Domain
 {
     public class Credentials: Entity
     {
-        public Credentials(string nickname, string email, string password)
+        public Credentials(Account account, string userName, string email, string password)
         {
-            Nickname = nickname;
+            Account = account;
+            UserName = userName;
             Email = email;
             Password = password;
         }
@@ -21,7 +22,8 @@ namespace MoneySaver.Domain
         {
         }
 
-        public virtual string Nickname { get; protected set; }
+        public virtual Account Account { get; set; }
+        public virtual string UserName { get; protected set; }
         public virtual string Email { get; protected set; }
         public virtual string Password { get; protected set; }
     }

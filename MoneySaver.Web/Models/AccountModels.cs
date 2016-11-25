@@ -1,10 +1,8 @@
-﻿using System;
+﻿using MoneySaver.DTO.Objects;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Data.Entity;
-using System.Globalization;
-using System.Web.Security;
+using System.Web.Mvc;
 
 namespace MoneySaver.Models
 {
@@ -51,7 +49,7 @@ namespace MoneySaver.Models
 
         [DataType(DataType.Password)]
         [Display(Name = "Confirm new password")]
-        [Compare("NewPassword", ErrorMessage = "The new password and confirmation password do not match.")]
+        [System.Web.Mvc.Compare("NewPassword", ErrorMessage = "The new password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
     }
 
@@ -90,11 +88,45 @@ namespace MoneySaver.Models
 
         [DataType(DataType.Password)]
         [Display(Name = "Confirm password")]
-        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+        [System.Web.Mvc.Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
 
-        [Required(ErrorMessage = "Currency is required.") ]
-        public CurrencyEnum Currency { get; set; }
+        [Required(ErrorMessage = "Give Please your wallet a name.")]
+        [Display(Name = "Wallet Name")]
+        public string WalletName { get; set; }
+
+        public bool defaultWallet { get; set; }
+
+        [Required(ErrorMessage = "Select please your wallet type.")]
+        [Display(Name = "Wallet Type")]
+        public WalletTypeModel WalletType { get; set; }
+
+        [Required(ErrorMessage = "Currency is required.")]
+        [Display(Name = "Currency")]
+        //[UIHint ("SelectList")]
+        public long SelectedCurrency { get; set; }
+        public IEnumerable<SelectListItem> AllCurrencies { get; set; }
+
+        public RegisterModel ()
+        {
+
+        }
+
+        public RegisterDto ConvertModelToDto()
+        {
+            var newUser = new RegisterDto();
+
+            newUser.UserName = this.UserName;
+            newUser.Email = this.Email;
+            newUser.Password = this.Password;
+            newUser.WalletName = this.WalletName;
+            newUser.defaultWallet = this.defaultWallet;
+            var walletType = new WalletTypeDto(this.WalletType.WalletTypeID, this.WalletType.Name);
+            newUser.WalletType = walletType;
+            newUser.selectedCurrency = this.SelectedCurrency;
+
+            return newUser;
+        }
     }
 
     public class ExternalLogin
@@ -103,4 +135,5 @@ namespace MoneySaver.Models
         public string ProviderDisplayName { get; set; }
         public string ProviderUserId { get; set; }
     }
+
 }

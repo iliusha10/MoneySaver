@@ -9,16 +9,17 @@ namespace MoneySaver.Factory
 {
     public static class AccountFactory
     {
-        public static Account CreateAccount(string nickname, string email, string password, CurrencyEnum currency)
+        public static Account CreateAccount(string nickname, string email, string password, string walletName, bool defaultWallet, Currency currency, WalletType walletType)
         {
             var currentDate = DateTime.Now;
             if (email.Contains('@'))
             {
                 if (password.Count() > 8)
                 {
-                    var user = CredentialsFactory.CreateCredentials(nickname, email, password);
-                    var account = new Account(user);
-                    var wallet = WalletFactory.CreateWallet(account, currency);
+                    var account = new Account(currentDate);
+                    var user = CredentialsFactory.CreateCredentials(account, nickname, email, password);
+                    account.AddUser(user);
+                    var wallet = WalletFactory.CreateWallet(account, currency, walletName, walletType, defaultWallet);
                     account.AddWallet(wallet);
                     return account;
                 }

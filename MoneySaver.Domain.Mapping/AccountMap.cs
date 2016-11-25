@@ -10,9 +10,9 @@ namespace MoneySaver.Domain.Mapping
     {
         public AccountMap()
         {
-            References(x => x.Credentials).Cascade.All();
             Map(x => x.CreatedDate).Not.Nullable();
             HasMany(x => x.Wallets).LazyLoad().Cascade.All().Inverse();
+            HasMany(x => x.Credentials).LazyLoad().Cascade.All().Inverse();
         }
     }
 }

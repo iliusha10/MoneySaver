@@ -8,10 +8,11 @@ namespace MoneySaver.Domain
 {
     public class Account: Entity
     {
-        public Account(Credentials user)
+        public Account(DateTime date)
         {
-            Credentials = user;
-            CreatedDate = DateTime.Now;
+            CreatedDate = date;
+            //Wallets = new List<Wallet>();
+            //Credentials = new List<Wallet>();
         }
 
         [Obsolete]
@@ -19,13 +20,18 @@ namespace MoneySaver.Domain
         {
         }
 
-        public virtual Credentials Credentials { get; protected set; }
+        public virtual IList<Credentials> Credentials { get; protected set; }
         public virtual DateTime CreatedDate { get; protected set; }
         public virtual IList<Wallet> Wallets { get; protected set; }
 
         public virtual void AddWallet(Wallet wallet)
         {
-            this.Wallets = new List<Wallet> { wallet };
+            Wallets.Add(wallet);
+        }
+
+        public virtual void AddUser(Credentials user)
+        {
+            Credentials.Add(user);
         }
     }
 }

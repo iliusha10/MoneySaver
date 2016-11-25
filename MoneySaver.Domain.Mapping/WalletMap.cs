@@ -11,8 +11,10 @@ namespace MoneySaver.Domain.Mapping
         public WalletMap()
         {
             References(x => x.Account);
+            References(x => x.Currency);
+            References(x => x.WalletType);
             Map(x => x.Amount).Not.Nullable();
-            Map(x => x.Currency).Not.Nullable();
+            Map(x => x.Name).Not.Nullable();
             Map(x => x.DefaultWallet).Not.Nullable();
         }
         

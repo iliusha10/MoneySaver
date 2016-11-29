@@ -11,6 +11,7 @@ namespace MoneySaver.Service
         public static void Register()
         {
             DIWrapper.Container.RegisterType<IAccountBll, AccountBll>();
+            DIWrapper.Container.RegisterType<IWalletBll, WalletBll>();
         }
     }
 }

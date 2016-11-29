@@ -1,4 +1,5 @@
 ﻿using FluentNHibernate.Data;
+using System.Collections.Generic;
 
 namespace MoneySaver.DAL.Interfaces
 {
@@ -8,5 +9,6 @@ namespace MoneySaver.DAL.Interfaces
         void SaveUpdate<TEntity>(TEntity entity) where TEntity : Entity;
         void Delete<TEntity>(long id);
         TEntity GetById<TEntity>(long id) where TEntity : Entity;
+        IList<TEntity> GetAll<TEntity>() where TEntity : Entity;
     }
 }

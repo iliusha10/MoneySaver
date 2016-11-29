@@ -15,7 +15,7 @@ namespace MoneySaver.DTO.Objects
         public string Password { get; set; }
 
         [DataMember]
-        public long selectedCurrency { get; set; }
+        public long CurrencyID { get; set; }
 
         [DataMember]
         public string WalletName { get; set; }
@@ -24,6 +24,6 @@ namespace MoneySaver.DTO.Objects
         public bool defaultWallet { get; set; }
 
         [DataMember]
-        public WalletTypeDto WalletType { get; set; }
+        public long WalletTypeID { get; set; }
     }
 }

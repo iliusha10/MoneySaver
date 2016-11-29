@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Runtime.Serialization;
 
 namespace MoneySaver.DTO.Objects
 {
+    [DataContract]
     public class WalletTypeDto
     {
         public WalletTypeDto(long id, string name)
@@ -13,7 +10,9 @@ namespace MoneySaver.DTO.Objects
             WalletTypeID = id;
             Name = name;
         }
+        [DataMember]
         public long WalletTypeID { get; set; }
+        [DataMember]
         public string Name { get; set; }
     }
 }

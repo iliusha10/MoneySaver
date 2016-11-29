@@ -8,6 +8,7 @@ using System.Web.Security;
 using WebMatrix.WebData;
 using MoneySaver.Models;
 using MoneySaver.Service.Interfaces;
+using System.ServiceModel;
 
 
 
@@ -17,12 +18,14 @@ namespace MoneySaver.Controllers
     public class AccountController : Controller
     {
         private readonly IAccountService _accountService;
+        private readonly IWalletService _walletService;
         //private ApplicationSignInManager _signInManager;
         //private ApplicationUserManager _userManager;
 
-        public AccountController(IAccountService accountService)
+        public AccountController(IAccountService accountService, IWalletService walletService)
         {
             _accountService = accountService;
+            _walletService = walletService;
         }
 
         //public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager ,IAccountService accountService)
@@ -115,6 +118,7 @@ namespace MoneySaver.Controllers
         {
             var newUser = new RegisterModel();
             newUser.AllCurrencies = GetCurrencies();
+            newUser.AllWalletTypes = GetWalletTypes();
             //ViewData["Currency"] = new SelectList(roles, "Value", "Text");
             return View(newUser);
         }
@@ -129,13 +133,13 @@ namespace MoneySaver.Controllers
         {
             if (ModelState.IsValid)
             {
-                    //var account = AccountFactory.CreateAccount(model.UserName, model.Email, model.Password, model.Currency);
-                    //_accountService.Save<Account>(account);
-                
+                //var account = AccountFactory.CreateAccount(model.UserName, model.Email, model.Password, model.Currency);
+                //_accountService.Save<Account>(account);
+
                 model.defaultWallet = true;
                 var newUser = model.ConvertModelToDto();
                 _accountService.Register(newUser);
-                    return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Home");
             }
 
             return View(model);
@@ -398,17 +402,34 @@ namespace MoneySaver.Controllers
 
         private IEnumerable<SelectListItem> GetCurrencies()
         {
-            //Add getting from db currency
-            var allCurrencies = new List<CurrencyModel> {new CurrencyModel ("USD", "US Dolar")};
+            var allCurrencies = _walletService.GetAllCurrencies();
+
             var currency = allCurrencies
                         .Select(x =>
                                 new SelectListItem
                                 {
-                                    Value = x.Abbreviation,
-                                    Text = x.Name
+                                    Value = x.CurrencyID.ToString(),
+                                    Text = x.Abbreviation
                                 });
 
             return new SelectList(currency, "Value", "Text");
+        }
+
+
+        private IEnumerable<SelectListItem> GetWalletTypes()
+        {
+
+            var allWalletTypes = _walletService.GetAllWalletTypes();
+
+            var types = allWalletTypes
+                        .Select(x =>
+                                new SelectListItem
+                                {
+                                    Value = x.WalletTypeID.ToString(),
+                                    Text = x.Name
+                                });
+
+            return new SelectList(types, "Value", "Text");
         }
 
         //internal class ExternalLoginResult : ActionResult

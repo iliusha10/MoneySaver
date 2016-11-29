@@ -7,34 +7,38 @@ using MoneySaver.Controllers;
 
 namespace MoneySaver
 {
-  public static class Bootstrapper
-  {
-    public static IUnityContainer Initialise()
+    public static class Bootstrapper
     {
-      var container = BuildUnityContainer();
+        public static IUnityContainer Initialise()
+        {
+            var container = BuildUnityContainer();
 
-      DependencyResolver.SetResolver(new UnityDependencyResolver(container));
+            DependencyResolver.SetResolver(new UnityDependencyResolver(container));
 
-      return container;
+            return container;
+        }
+
+        private static IUnityContainer BuildUnityContainer()
+        {
+            var container = new UnityContainer();
+
+            RegisterTypes(container);
+
+            return container;
+        }
+
+        public static void RegisterTypes(IUnityContainer container)
+        {
+            container.RegisterType<IAccountService>(
+                new ContainerControlledLifetimeManager(),
+                new InjectionFactory(
+                    (c) => new ChannelFactory<IAccountService>("WSHttpBinding_IAccountService").CreateChannel()));
+            container.RegisterType<IWalletService>(
+                 new ContainerControlledLifetimeManager(),
+                 new InjectionFactory(
+                    (c) => new ChannelFactory<IWalletService>("WSHttpBinding_IWalletService").CreateChannel()));
+            //container.RegisterType<AccountController>(new InjectionConstructor());
+            //container.RegisterType<ManageController>(new InjectionConstructor());
+        }
     }
-
-    private static IUnityContainer BuildUnityContainer()
-    {
-      var container = new UnityContainer();
-
-      RegisterTypes(container);
-
-      return container;
-    }
-
-    public static void RegisterTypes(IUnityContainer container)
-    {
-        container.RegisterType<IAccountService>(
-            new ContainerControlledLifetimeManager(),
-            new InjectionFactory(
-                (c) => new ChannelFactory<IAccountService>("WSHttpBinding_IAccountService").CreateChannel()));
-        //container.RegisterType<AccountController>(new InjectionConstructor());
-        //container.RegisterType<ManageController>(new InjectionConstructor());
-    }
-  }
 }

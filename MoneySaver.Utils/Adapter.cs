@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace MoneySaver.BLL
 {
     public static class Adapter
@@ -22,5 +23,29 @@ namespace MoneySaver.BLL
         //    //dst.Id = src.WalletTypeID;
         //    dst.Name = src.Name;
         //}
+
+        public static IList<CurrencyDto> AdaptDomainListToCurrencyDtoList(IList<Currency> srcList)
+        {
+            var dtoList = new List<CurrencyDto>();
+
+            foreach (var item in srcList)
+            {
+                dtoList.Add(new CurrencyDto() { CurrencyID = item.Id, Name = item.Name, Abbreviation = item.Abbreviation });
+            }
+
+            return dtoList;
+        }
+
+        public static IList<WalletTypeDto> AdaptDomainListToWalletTypeDto(IList<WalletType> srcList)
+        {
+            var dtoList = new List<WalletTypeDto>();
+
+            foreach (var item in srcList)
+            {
+                dtoList.Add(new WalletTypeDto( item.Id, item.Name ));
+            }
+
+            return dtoList;
+        }
     }
 }

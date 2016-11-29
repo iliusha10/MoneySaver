@@ -17,9 +17,10 @@ namespace MoneySaver.BLL
         private readonly IRepository _Dal;
         private readonly IAccountRepository _accountDal;
 
-        public AccountBll(IAccountRepository accountDal)
+        public AccountBll(IAccountRepository accountDal, IRepository dal)
         {
             _accountDal = accountDal;
+            _Dal = dal;
         }
 
         public LoginDto Login(string email, string pass)
@@ -35,8 +36,8 @@ namespace MoneySaver.BLL
         
         public void Register(RegisterDto user)
         {
-            var currency = _Dal.GetById<Currency>(user.selectedCurrency);
-            var walletType = _Dal.GetById<WalletType>(user.WalletType.WalletTypeID);
+            var currency = _Dal.GetById<Currency>(user.CurrencyID);
+            var walletType = _Dal.GetById<WalletType>(user.WalletTypeID);
             var account = AccountFactory.CreateAccount(user.UserName, user.Email, user.Password, user.WalletName, user.defaultWallet, currency, walletType);
             _Dal.SaveUpdate(account);
             //string nickname, string email, string password, string walletName, bool defaultWallet, Currency currency, WalletType walletType

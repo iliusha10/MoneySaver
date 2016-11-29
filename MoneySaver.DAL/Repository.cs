@@ -3,6 +3,7 @@ using MoneySaver.DAL.Interfaces;
 using MoneySaver.Utils;
 using FluentNHibernate.Data;
 using System;
+using System.Collections.Generic;
 
 
 namespace MoneySaver.DAL
@@ -81,6 +82,24 @@ namespace MoneySaver.DAL
                     return res;
                 }
                 catch(Exception ex)
+                {
+                    Logger.AddToLog(ex);
+                    return null;
+                }
+            }
+        }
+
+
+        public IList<TEntity> GetAll<TEntity>() where TEntity : Entity
+        {
+            using (var tran = _session.BeginTransaction())
+            {
+                try
+                {
+                    var res = _session.QueryOver<TEntity>().List();
+                    return res;
+                }
+                catch (Exception ex)
                 {
                     Logger.AddToLog(ex);
                     return null;

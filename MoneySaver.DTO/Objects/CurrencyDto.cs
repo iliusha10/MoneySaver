@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Runtime.Serialization;
 
 namespace MoneySaver.DTO.Objects
 {
+    [DataContract]
     public class CurrencyDto
     {
         //public CurrencyDto (long id, string abbrv, string name)
@@ -15,8 +12,11 @@ namespace MoneySaver.DTO.Objects
         //    Name = name;
         //}
 
+        [DataMember]
         public long CurrencyID { get; set; }
+        [DataMember]
         public string Abbreviation { get; set; }
+        [DataMember]
         public string Name { get; set; }
     }
 }

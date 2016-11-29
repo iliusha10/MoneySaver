@@ -97,9 +97,10 @@ namespace MoneySaver.Models
 
         public bool defaultWallet { get; set; }
 
-        [Required(ErrorMessage = "Select please your wallet type.")]
+        //[Required(ErrorMessage = "Select please your wallet type.")]
         [Display(Name = "Wallet Type")]
-        public WalletTypeModel WalletType { get; set; }
+        public long SelectedWalletType { get; set; }
+        public IEnumerable<SelectListItem> AllWalletTypes { get; set; }
 
         [Required(ErrorMessage = "Currency is required.")]
         [Display(Name = "Currency")]
@@ -121,9 +122,8 @@ namespace MoneySaver.Models
             newUser.Password = this.Password;
             newUser.WalletName = this.WalletName;
             newUser.defaultWallet = this.defaultWallet;
-            var walletType = new WalletTypeDto(this.WalletType.WalletTypeID, this.WalletType.Name);
-            newUser.WalletType = walletType;
-            newUser.selectedCurrency = this.SelectedCurrency;
+            newUser.WalletTypeID = this.SelectedWalletType;
+            newUser.CurrencyID = this.SelectedCurrency;
 
             return newUser;
         }

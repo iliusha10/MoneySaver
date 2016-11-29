@@ -9,6 +9,7 @@ using WebMatrix.WebData;
 using MoneySaver.Models;
 using MoneySaver.Service.Interfaces;
 using System.ServiceModel;
+using MoneySaver.DTO.Objects;
 
 
 
@@ -402,8 +403,10 @@ namespace MoneySaver.Controllers
 
         private IEnumerable<SelectListItem> GetCurrencies()
         {
-            var allCurrencies = _walletService.GetAllCurrencies();
+            //IList<CurrencyDto> allCurrencies = new List<CurrencyDto>();
 
+            var allCurrencies = _walletService.GetAllCurrencies();
+            
             var currency = allCurrencies
                         .Select(x =>
                                 new SelectListItem
@@ -486,6 +489,7 @@ namespace MoneySaver.Controllers
                     return "An unknown error occurred. Please verify your entry and try again. If the problem persists, please contact your system administrator.";
             }
         }
+
         #endregion
     }
 }

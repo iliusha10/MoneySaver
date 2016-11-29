@@ -7,6 +7,7 @@ using MoneySaver.DependancyInjection;
 using MoneySaver.DAL.Interfaces;
 using MoneySaver.DAL;
 using NHibernate;
+using MoneySaver.Service.Interfaces;
 
 namespace MoneySaver.Service
 {
@@ -34,7 +35,13 @@ namespace MoneySaver.Service
             // Configure common service locator to use Unity
             ServiceLocator.SetLocatorProvider(() => new UnityServiceLocator(DIWrapper.Container));
 
-            InitBLL.Register();
+            //DIWrapper.Container.RegisterType<IAccountService, AccountService>();
+            //DIWrapper.Container.RegisterType<IWalletService, WalletService>();
+
+
+            DIWrapper.Container.RegisterType<IAccountBll, AccountBll>();
+            DIWrapper.Container.RegisterType<IWalletBll, WalletBll>();
+
             InitDAL.Register();
 
             //DIWrapper.Container.RegisterType<IAccountBll, AccountBll>();

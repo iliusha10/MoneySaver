@@ -13,7 +13,7 @@ namespace MoneySaver.DAL
         protected readonly ISession _session;
         private readonly ISessionManager _sessionManager;
 
-        protected Repository (ISessionManager sessionManager)
+        public Repository(ISessionManager sessionManager)
         {
             _sessionManager = sessionManager;
             _session = _sessionManager.GetSession();

@@ -1,4 +1,5 @@
-﻿<%@ ServiceHost Language="C#" Debug="true" 
+﻿<%@ ServiceHost 
+    Language="C#" Debug="true" 
     Service="MoneySaver.Service.WalletService" 
     Factory="MoneySaver.DependancyInjection.WCF.UnityServiceHostFactory" %>
 

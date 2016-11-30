@@ -25,5 +25,8 @@ namespace MoneySaver.DTO.Objects
 
         [DataMember]
         public long WalletTypeID { get; set; }
+
+        [DataMember]
+        public bool InsertCategories { get; set; }
     }
 }

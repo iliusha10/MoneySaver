@@ -117,10 +117,9 @@ namespace MoneySaver.Controllers
         [HttpGet]
         public ActionResult Register()
         {
-            var newUser = new RegisterModel();
+            var newUser = new RegisterModel() { defaultWallet = true};
             newUser.AllCurrencies = GetCurrencies();
             newUser.AllWalletTypes = GetWalletTypes();
-            //ViewData["Currency"] = new SelectList(roles, "Value", "Text");
             return View(newUser);
         }
 
@@ -134,10 +133,7 @@ namespace MoneySaver.Controllers
         {
             if (ModelState.IsValid)
             {
-                //var account = AccountFactory.CreateAccount(model.UserName, model.Email, model.Password, model.Currency);
-                //_accountService.Save<Account>(account);
-
-                model.defaultWallet = true;
+                //model.defaultWallet = true;
                 var newUser = model.ConvertModelToDto();
                 _accountService.Register(newUser);
                 return RedirectToAction("Index", "Home");

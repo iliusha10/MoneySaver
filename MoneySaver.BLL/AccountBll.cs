@@ -30,7 +30,6 @@ namespace MoneySaver.BLL
             if ((credentials != null) && (credentials.Password == pass))
                 return credentials;
             else return null;
-
         }
 
         
@@ -38,9 +37,8 @@ namespace MoneySaver.BLL
         {
             var currency = _Dal.GetById<Currency>(user.CurrencyID);
             var walletType = _Dal.GetById<WalletType>(user.WalletTypeID);
-            var account = AccountFactory.CreateAccount(user.UserName, user.Email, user.Password, user.WalletName, user.defaultWallet, currency, walletType);
+            var account = AccountFactory.CreateAccount(user.UserName, user.Email, user.Password, user.WalletName, user.defaultWallet, currency, walletType, user.InsertCategories);
             _Dal.SaveUpdate(account);
-            //string nickname, string email, string password, string walletName, bool defaultWallet, Currency currency, WalletType walletType
         }
     }
 }

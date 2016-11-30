@@ -63,8 +63,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Transaction.cs" />
     <Compile Include="TransactionCategory.cs" />
+    <Compile Include="TransactionCategoryType.cs" />
     <Compile Include="TransactionSubcategory.cs" />
-    <Compile Include="TransactionType.cs" />
     <Compile Include="Wallet.cs" />
     <Compile Include="WalletType.cs" />
   </ItemGroup>

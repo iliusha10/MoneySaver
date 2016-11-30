@@ -104,9 +104,11 @@ namespace MoneySaver.Models
 
         [Required(ErrorMessage = "Currency is required.")]
         [Display(Name = "Currency")]
-        //[UIHint ("SelectList")]
         public long SelectedCurrency { get; set; }
         public IEnumerable<SelectListItem> AllCurrencies { get; set; }
+
+        [Display(Name = "Insert a sample set of categories/subcategories")]
+        public bool InsertCategories { get; set; }
 
         public RegisterModel ()
         {
@@ -124,6 +126,7 @@ namespace MoneySaver.Models
             newUser.defaultWallet = this.defaultWallet;
             newUser.WalletTypeID = this.SelectedWalletType;
             newUser.CurrencyID = this.SelectedCurrency;
+            newUser.InsertCategories = this.InsertCategories;
 
             return newUser;
         }

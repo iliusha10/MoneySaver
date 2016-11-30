@@ -8,10 +8,11 @@ namespace MoneySaver.Domain
 {
     public class TransactionCategory: Entity
     {
-        public TransactionCategory(string name, Account account)
+        public TransactionCategory(string name, Account account, TransactionCategoryType categoryType)
         {
             CategoryName = name;
             Account = account;
+            CategoryType = categoryType;
         }
 
         [Obsolete]
@@ -22,6 +23,7 @@ namespace MoneySaver.Domain
         public virtual string CategoryName { get; protected set; }
         public virtual int OrderNumber { get; protected set; }
         public virtual Account Account { get; protected set; }
+        public virtual TransactionCategoryType CategoryType { get; protected set; }
 
     }
 }

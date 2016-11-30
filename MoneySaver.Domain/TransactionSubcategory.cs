@@ -21,5 +21,6 @@ namespace MoneySaver.Domain
 
         public virtual string SubcategoryName { get; protected set; }
         public virtual TransactionCategory Category { get; protected set; }
+        public virtual int OrderNumber { get; protected set; }
     }
 }

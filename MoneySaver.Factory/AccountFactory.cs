@@ -9,7 +9,7 @@ namespace MoneySaver.Factory
 {
     public static class AccountFactory
     {
-        public static Account CreateAccount(string nickname, string email, string password, string walletName, bool defaultWallet, Currency currency, WalletType walletType)
+        public static Account CreateAccount(string nickname, string email, string password, string walletName, bool defaultWallet, Currency currency, WalletType walletType, bool insertCategories)
         {
             var currentDate = DateTime.Now;
             if (email.Contains('@'))
@@ -21,6 +21,12 @@ namespace MoneySaver.Factory
                     account.AddUser(user);
                     var wallet = WalletFactory.CreateWallet(account, currency, walletName, walletType, defaultWallet);
                     account.AddWallet(wallet);
+
+                    if (insertCategories)
+                    {
+                        CategoryFactory.CreateCategories(account.Id);
+                    }
+
                     return account;
                 }
             }

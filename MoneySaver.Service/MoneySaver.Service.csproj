@@ -114,6 +114,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="AccountService.svc" />
+    <Content Include="Data\DefaultCategoryList.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Global.asax" />
     <Content Include="WalletService.svc" />
     <Content Include="Web.config">

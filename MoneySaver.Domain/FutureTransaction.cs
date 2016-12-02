@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MoneySaver.Domain
 {
@@ -10,7 +6,7 @@ namespace MoneySaver.Domain
     {
         public FutureTransaction(bool applyOnWallet, bool applyDate)
         {
-            Apply = applyOnWallet;
+            ApplyOnWallet = applyOnWallet;
             ApplyDate = applyDate;
         }
 

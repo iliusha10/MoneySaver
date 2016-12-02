@@ -13,6 +13,7 @@ namespace MoneySaver.Domain
             CreatedDate = date;
             WalletsList = new List<Wallet>();
             CredentialsList = new List<Credentials>();
+            TransactionCategoryList = new List<TransactionCategory>();
         }
 
         [Obsolete]
@@ -23,6 +24,7 @@ namespace MoneySaver.Domain
         public virtual IList<Credentials> CredentialsList { get; protected set; }
         public virtual DateTime CreatedDate { get; protected set; }
         public virtual IList<Wallet> WalletsList { get; protected set; }
+        public virtual IList<TransactionCategory> TransactionCategoryList { get; protected set; }
 
         public virtual void AddWallet(Wallet wallet)
         {
@@ -32,6 +34,11 @@ namespace MoneySaver.Domain
         public virtual void AddUser(Credentials user)
         {
             CredentialsList.Add(user);
+        }
+
+        public virtual void AddTransactionCategory(TransactionCategory transactionCategory)
+        {
+            TransactionCategoryList.Add(transactionCategory);
         }
     }
 }

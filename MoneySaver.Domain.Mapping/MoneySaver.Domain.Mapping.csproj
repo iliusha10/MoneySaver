@@ -60,6 +60,7 @@
     <Compile Include="CredentialsMap.cs" />
     <Compile Include="CurrencyMap.cs" />
     <Compile Include="EntityMap.cs" />
+    <Compile Include="FutureTransactionMap.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TransactionCategoryMap.cs" />
     <Compile Include="TransactionCategoryTypeMap.cs" />

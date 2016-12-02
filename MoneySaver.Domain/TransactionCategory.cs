@@ -24,6 +24,7 @@ namespace MoneySaver.Domain
         public virtual int OrderNumber { get; protected set; }
         public virtual Account Account { get; protected set; }
         public virtual TransactionCategoryType CategoryType { get; protected set; }
+        public virtual IList<TransactionSubcategory> TransactionSubcategoryList { get; protected set; }
 
     }
 }

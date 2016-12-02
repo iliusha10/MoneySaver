@@ -13,6 +13,7 @@ namespace MoneySaver.Domain.Mapping
             Map(x => x.CreatedDate).Not.Nullable();
             HasMany(x => x.WalletsList).LazyLoad().Cascade.All().Inverse();
             HasMany(x => x.CredentialsList).LazyLoad().Cascade.All().Inverse();
+            HasMany(x => x.TransactionCategoryList).LazyLoad().Cascade.All().Inverse();
         }
     }
 }

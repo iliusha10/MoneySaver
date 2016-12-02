@@ -1,9 +1,5 @@
 ﻿using FluentNHibernate.Mapping;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using MoneySaver.Domain;
 
 namespace MoneySaver.Domain.Mapping
 {
@@ -11,7 +7,8 @@ namespace MoneySaver.Domain.Mapping
     {
         public FutureTransactionMap()
         {
-            Map(x => x.).Not.Nullable();
+            Map(x => x.ApplyOnWallet).Not.Nullable();
+            Map(x => x.ApplyDate).Not.Nullable();
         }
     }
 }

@@ -37,7 +37,12 @@ namespace MoneySaver.BLL
         {
             var currency = _Dal.GetById<Currency>(user.CurrencyID);
             var walletType = _Dal.GetById<WalletType>(user.WalletTypeID);
-            var account = AccountFactory.CreateAccount(user.UserName, user.Email, user.Password, user.WalletName, user.defaultWallet, currency, walletType, user.InsertCategories);
+            var tranCatTypes = new List<TransactionCategoryType>();
+            if (user.InsertCategories)
+            {
+                tranCatTypes = _Dal.GetAll<TransactionCategoryType>().ToList();
+            }
+            var account = AccountFactory.CreateAccount(user.UserName, user.Email, user.Password, user.WalletName, user.defaultWallet, currency, walletType, user.InsertCategories, tranCatTypes);
             _Dal.SaveUpdate(account);
         }
     }

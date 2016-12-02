@@ -12,8 +12,10 @@ namespace MoneySaver.Domain.Mapping
         {
             Map(x => x.CategoryName).Not.Nullable();
             Map(x => x.OrderNumber);
+            HasMany(x => x.TransactionSubcategoryList).LazyLoad().Cascade.All().Inverse();
             References(x => x.Account).Not.Nullable();
             References(x => x.CategoryType).Not.Nullable();
+
         }
     }
 }

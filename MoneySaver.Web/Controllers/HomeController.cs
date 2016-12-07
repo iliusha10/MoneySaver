@@ -10,12 +10,6 @@ namespace MoneySaver.Controllers
     [Authorize]
     public class HomeController : Controller
     {
-        private readonly IAccountService _accountService;
-
-        [Obsolete]
-        public HomeController()
-        {
-        }
 
         //public HomeController (IAccountRepository accountRepository)
         //{

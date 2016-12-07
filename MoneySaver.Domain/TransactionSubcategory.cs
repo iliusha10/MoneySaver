@@ -12,6 +12,7 @@ namespace MoneySaver.Domain
         {
             SubcategoryName = name;
             Category = category;
+            OrderNumber = Category.TransactionSubcategoryList.Count();
         }
 
         [Obsolete]

@@ -13,6 +13,8 @@ namespace MoneySaver.Domain
             CategoryName = name;
             Account = account;
             CategoryType = categoryType;
+            TransactionSubcategoryList = new List<TransactionSubcategory>();
+            OrderNumber = account.TransactionCategoryList.Count();
         }
 
         [Obsolete]
@@ -25,6 +27,11 @@ namespace MoneySaver.Domain
         public virtual Account Account { get; protected set; }
         public virtual TransactionCategoryType CategoryType { get; protected set; }
         public virtual IList<TransactionSubcategory> TransactionSubcategoryList { get; protected set; }
+
+        public virtual void AddSubCategory(TransactionSubcategory subcat)
+        {
+            TransactionSubcategoryList.Add(subcat);
+        }
 
     }
 }

@@ -4,22 +4,19 @@ using System.Runtime.Serialization;
 namespace MoneySaver.DTO.Objects
 {
     [DataContract]
-    public class TransactionListDto
+    public class TransactionDto
     {
         [DataMember]
-        public long TransactionID { get; set; }
+        public long CategoryTypeID { get; set; }
 
         [DataMember]
-        public string CategoryTypeName { get; set; }
+        public long WalletID { get; set; }
 
         [DataMember]
-        public string WalletName { get; set; }
+        public long CategoryID { get; set; }
 
         [DataMember]
-        public string CategoryName { get; set; }
-
-        [DataMember]
-        public string SubCategoryName { get; set; }
+        public long SubCategoryID { get; set; }
 
         [DataMember]
         public double Value { get; set; }

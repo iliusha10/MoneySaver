@@ -47,5 +47,17 @@ namespace MoneySaver.BLL
 
             return dtoList;
         }
+
+        public static IList<CategoryTypeDto> AdaptDomainListToCategoryTypeDto(IList<TransactionCategoryType> srcList)
+        {
+            var dtoList = new List<CategoryTypeDto>();
+
+            foreach (var item in srcList)
+            {
+                dtoList.Add(new CategoryTypeDto(item.Id, item.Name));
+            }
+
+            return dtoList;
+        }
     }
 }

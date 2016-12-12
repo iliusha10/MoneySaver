@@ -20,5 +20,9 @@ namespace MoneySaver.BLL.Interfaces
         /// </summary>
         /// <returns>list of wallet types objects</returns>
         IList<WalletTypeDto> GetAllWalletTypes();
+
+        IList<WalletDto> GetUserWallets(string user);
+
+        WalletDto GetDefaultUserWallet(string user);
     }
 }

@@ -1,15 +1,10 @@
 using MoneySaver.BLL.Interfaces;
-using MoneySaver.DTO;
 using MoneySaver.DTO.Objects;
 using MoneySaver.Service.Interfaces;
 using System;
 using System.Collections.Generic;
-using System.Data.Services;
-using System.Data.Services.Common;
-using System.Linq;
 using System.ServiceModel;
-using System.ServiceModel.Web;
-using System.Web;
+using MoneySaver.Utils;
 
 namespace MoneySaver.Service
 {
@@ -32,6 +27,7 @@ namespace MoneySaver.Service
             }
             catch (Exception ex)
             {
+                Logger.AddToLog("Failed to GetAllCurrencies list from Service", ex);
                 throw new FaultException(ex.Message);
             }
         }
@@ -45,9 +41,37 @@ namespace MoneySaver.Service
             }
             catch (Exception ex)
             {
+                Logger.AddToLog("Failed to GetAllWalletTypes list from Service", ex);
                 throw new FaultException(ex.Message);
             }
         }
 
+        public IList<WalletDto> GetUserWallets(string user)
+        {
+            try
+            {
+                var wallets = _walletBll.GetUserWallets(user);
+                return wallets;
+            }
+            catch (Exception ex)
+            {
+                Logger.AddToLog("Failed to GetUserWallets list from Service", ex);
+                throw new FaultException(ex.Message);
+            }
+        }
+
+        public WalletDto GetDefaultUserWallet(string user)
+        {
+            try
+            {
+                var defaultWallet = _walletBll.GetDefaultUserWallet(user);
+                return defaultWallet;
+            }
+            catch (Exception ex)
+            {
+                Logger.AddToLog("Failed to GetDefaultUserWallet from Service", ex);
+                throw new FaultException(ex.Message);
+            }
+        }
     }
 }

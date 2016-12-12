@@ -118,6 +118,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Global.asax" />
+    <Content Include="TransactionService.svc" />
     <Content Include="WalletService.svc" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -131,6 +132,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TransactionService.svc.cs">
+      <DependentUpon>TransactionService.svc</DependentUpon>
+    </Compile>
     <Compile Include="WalletService.svc.cs">
       <DependentUpon>WalletService.svc</DependentUpon>
     </Compile>
@@ -175,6 +179,10 @@
     <ProjectReference Include="..\MoneySaver.Service.Interfaces\MoneySaver.Service.Interfaces.csproj">
       <Project>{08ebcc53-effc-4850-b78f-ecb5e5ab02e9}</Project>
       <Name>MoneySaver.Service.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MoneySaver.Utils\MoneySaver.Utils.csproj">
+      <Project>{ba41e532-b7f5-4e6c-8741-50d9e34e5238}</Project>
+      <Name>MoneySaver.Utils</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

@@ -1,10 +1,6 @@
 ﻿using MoneySaver.DTO.Objects;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.ServiceModel;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MoneySaver.Service.Interfaces
 {
@@ -12,6 +8,18 @@ namespace MoneySaver.Service.Interfaces
     public interface ITransactionService
     {
         [OperationContract]
-        IList<TransactionListDto> GetUserTransactions(long accountID);
+        IList<TransactionListDto> GetUserTransactions(string user);
+
+        [OperationContract]
+        IList<CategoryTypeDto> GetAllCategoryTypes();
+
+        [OperationContract]
+        void SubmitTransaction(TransactionDto dto);
+
+        [OperationContract]
+        IList<CategoryDto> GetCategoriesByType(string user, long type);
+
+        [OperationContract]
+        IList<SubcategoryDto> GetSubcategories(long category);
     }
 }

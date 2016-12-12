@@ -1,13 +1,8 @@
 ﻿using MoneySaver.DAL.Interfaces;
 using MoneySaver.Domain;
 using MoneySaver.DTO;
-using NHibernate;
 using NHibernate.Transform;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MoneySaver.DAL
 {
@@ -50,5 +45,19 @@ namespace MoneySaver.DAL
         }
 
 
+
+
+        public long GetAcountIdByName(string name)
+        {
+            Account acc = null;
+
+            var accountId = _session.QueryOver<Credentials>()
+                .Where(c => c.UserName == name)
+                .JoinAlias(c => c.Account, () => acc)
+                .Select(x => acc.Id)
+                .SingleOrDefault<long>();
+
+            return accountId;
+        }
     }
 }

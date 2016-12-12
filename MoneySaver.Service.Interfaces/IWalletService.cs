@@ -16,5 +16,11 @@ namespace MoneySaver.Service.Interfaces
 
         [OperationContract]
         IList<WalletTypeDto> GetAllWalletTypes();
+
+        [OperationContract]
+        IList<WalletDto> GetUserWallets(string user);
+
+        [OperationContract]
+        WalletDto GetDefaultUserWallet(string user);
     }
 }

@@ -59,6 +59,8 @@
     <Compile Include="IAccountRepository.cs" />
     <Compile Include="IRepository.cs" />
     <Compile Include="ISessionManager.cs" />
+    <Compile Include="ITransactionRepository.cs" />
+    <Compile Include="IWalletRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

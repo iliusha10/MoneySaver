@@ -40,11 +40,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Adapters\LoginAdapter.cs" />
-    <Compile Include="Adapters\RegisterAdapter.cs" />
+    <Compile Include="Objects\CategoryDto.cs" />
+    <Compile Include="Objects\CategoryTypeDto.cs" />
     <Compile Include="Objects\CurrencyDto.cs" />
     <Compile Include="Objects\LoginDto.cs" />
     <Compile Include="Objects\RegisterDto.cs" />
+    <Compile Include="Objects\SubcategoryDto.cs" />
+    <Compile Include="Objects\TransactionDto.cs" />
+    <Compile Include="Objects\TransactionListDto.cs" />
+    <Compile Include="Objects\WalletDto.cs" />
     <Compile Include="Objects\WalletTypeDto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

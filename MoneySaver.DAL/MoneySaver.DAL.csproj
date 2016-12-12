@@ -61,6 +61,8 @@
     <Compile Include="Repository.cs" />
     <Compile Include="SessionFactoryInit.cs" />
     <Compile Include="SessionManager.cs" />
+    <Compile Include="TransactionRepository.cs" />
+    <Compile Include="WalletRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

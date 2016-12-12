@@ -37,6 +37,10 @@ namespace MoneySaver
                  new ContainerControlledLifetimeManager(),
                  new InjectionFactory(
                     (c) => new ChannelFactory<IWalletService>("WSHttpBinding_IWalletService").CreateChannel()));
+            container.RegisterType<ITransactionService>(
+                 new ContainerControlledLifetimeManager(),
+                 new InjectionFactory(
+                    (c) => new ChannelFactory<ITransactionService>("WSHttpBinding_ITransactionService").CreateChannel()));
             //container.RegisterType<AccountController>(new InjectionConstructor());
             //container.RegisterType<ManageController>(new InjectionConstructor());
         }

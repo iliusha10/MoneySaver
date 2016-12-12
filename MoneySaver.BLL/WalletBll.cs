@@ -13,10 +13,14 @@ namespace MoneySaver.BLL
     public class WalletBll : IWalletBll
     {
         private readonly IRepository _Dal;
+        private readonly IWalletRepository _walletDal;
+        private readonly IAccountRepository _accountDal;
 
-        public WalletBll(IRepository dal)
+        public WalletBll(IRepository dal, IWalletRepository walletDal, IAccountRepository accountDal)
         {
             _Dal = dal;
+            _walletDal = walletDal;
+            _accountDal = accountDal;
         }
 
         public IList<CurrencyDto> GetAllCurrencies()
@@ -33,6 +37,19 @@ namespace MoneySaver.BLL
             var typesDtoList = Adapter.AdaptDomainListToWalletTypeDto(types);
 
             return typesDtoList;
+        }
+
+
+        public IList<WalletDto> GetUserWallets(string user)
+        {
+            var accountId = _accountDal.GetAcountIdByName(user);
+            return _walletDal.GetUserWallets(accountId);
+        }
+
+        public WalletDto GetDefaultUserWallet(string user)
+        {
+            var accountId = _accountDal.GetAcountIdByName(user);
+            return _walletDal.GetDefaultUserWallet(accountId);
         }
     }
 }

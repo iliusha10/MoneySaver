@@ -40,6 +40,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IAccountBll.cs" />
+    <Compile Include="ITransactionBll.cs" />
     <Compile Include="IWalletBll.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

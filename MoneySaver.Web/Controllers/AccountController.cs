@@ -117,7 +117,7 @@ namespace MoneySaver.Controllers
         [HttpGet]
         public ActionResult Register()
         {
-            var newUser = new RegisterModel() { defaultWallet = true};
+            var newUser = new RegisterModel();
             newUser.AllCurrencies = GetCurrencies();
             newUser.AllWalletTypes = GetWalletTypes();
             return View(newUser);
@@ -133,8 +133,7 @@ namespace MoneySaver.Controllers
         {
             if (ModelState.IsValid)
             {
-                //model.defaultWallet = true;
-                var newUser = model.ConvertModelToDto();
+                var newUser = model.ConvertModelToDto(true);
                 _accountService.Register(newUser);
                 return RedirectToAction("Index", "Home");
             }
@@ -399,8 +398,6 @@ namespace MoneySaver.Controllers
 
         private IEnumerable<SelectListItem> GetCurrencies()
         {
-            //IList<CurrencyDto> allCurrencies = new List<CurrencyDto>();
-
             var allCurrencies = _walletService.GetAllCurrencies();
             
             var currency = allCurrencies
@@ -417,7 +414,6 @@ namespace MoneySaver.Controllers
 
         private IEnumerable<SelectListItem> GetWalletTypes()
         {
-
             var allWalletTypes = _walletService.GetAllWalletTypes();
 
             var types = allWalletTypes

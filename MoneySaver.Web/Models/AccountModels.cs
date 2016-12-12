@@ -115,7 +115,7 @@ namespace MoneySaver.Models
 
         }
 
-        public RegisterDto ConvertModelToDto()
+        public RegisterDto ConvertModelToDto(bool isDefault)
         {
             var newUser = new RegisterDto();
 
@@ -123,7 +123,7 @@ namespace MoneySaver.Models
             newUser.Email = this.Email;
             newUser.Password = this.Password;
             newUser.WalletName = this.WalletName;
-            newUser.defaultWallet = this.defaultWallet;
+            newUser.defaultWallet = isDefault;
             newUser.WalletTypeID = this.SelectedWalletType;
             newUser.CurrencyID = this.SelectedCurrency;
             newUser.InsertCategories = this.InsertCategories;

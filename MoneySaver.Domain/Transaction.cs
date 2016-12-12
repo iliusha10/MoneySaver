@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MoneySaver.Domain
 {
-    public class Transaction: Entity
+    public class Transaction : Entity
     {
         public Transaction(double value, string comment, TransactionCategory category, TransactionSubcategory subCategory, Wallet wallet, DateTime date)
         {
@@ -15,14 +11,7 @@ namespace MoneySaver.Domain
             TransactionCategory = category;
             TransactionSubcategory = subCategory;
             Walllet = wallet;
-            if (date != null)
-            {
-                CreateDate = date;
-            }
-            else
-            {
-                CreateDate = DateTime.Now;
-            }
+            CreateDate = date;
         }
 
         [Obsolete]

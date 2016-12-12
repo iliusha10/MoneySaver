@@ -72,6 +72,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TransactionBll.cs" />
     <Compile Include="WalletBll.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -13,6 +13,8 @@ namespace MoneySaver.BLL
             DIWrapper.Container.RegisterType<IAccountRepository, AccountRepository>();
             DIWrapper.Container.RegisterType<IRepository, Repository>();
             DIWrapper.Container.RegisterType<ISessionManager, SessionManager>();
+            DIWrapper.Container.RegisterType<ITransactionRepository, TransactionRepository>();
+            DIWrapper.Container.RegisterType<IWalletRepository, WalletRepository>();
         }
         
     }

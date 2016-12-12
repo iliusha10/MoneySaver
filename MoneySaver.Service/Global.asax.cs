@@ -41,6 +41,7 @@ namespace MoneySaver.Service
 
             DIWrapper.Container.RegisterType<IAccountBll, AccountBll>();
             DIWrapper.Container.RegisterType<IWalletBll, WalletBll>();
+            DIWrapper.Container.RegisterType<ITransactionBll, TransactionBll>();
 
             InitDAL.Register();
 

@@ -10,5 +10,7 @@ namespace MoneySaver.DAL.Interfaces
     public interface IAccountRepository
     {
         LoginDto GetCredentialsByEmail(string email);
+
+        long GetAcountIdByName(string name);
     }
 }

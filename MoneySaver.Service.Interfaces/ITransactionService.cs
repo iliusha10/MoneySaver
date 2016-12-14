@@ -21,5 +21,11 @@ namespace MoneySaver.Service.Interfaces
 
         [OperationContract]
         IList<SubcategoryDto> GetSubcategories(long category);
+
+        [OperationContract]
+        void DeleteTransaction(long id);
+
+        [OperationContract]
+        TransactionListDto GetTransaction(long id);
     }
 }

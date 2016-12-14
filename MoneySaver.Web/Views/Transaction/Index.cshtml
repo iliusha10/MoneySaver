@@ -11,9 +11,9 @@
 </p>
 <table class="table">
     <tr>
-        @*<th>
-            @Html.DisplayNameFor(model => model.TransactionID)
-        </th>*@
+        <th>
+                @Html.DisplayNameFor(model => model.TransactionID)
+            </th>
         <th>
             @Html.DisplayNameFor(model => model.WalletName)
         </th>
@@ -38,38 +38,66 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.HiddenFor(modelItem => item.TransactionID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.WalletName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CategoryTypeName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CategoryName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SubCategoryName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Value)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Comment)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CreateDate)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr class="TableRow" data-id=@item.TransactionID>
+            <td>
+                @Html.DisplayFor(modelItem => item.TransactionID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.WalletName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CategoryTypeName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CategoryName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SubCategoryName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Value)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Comment)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreateDate)
+            </td>
+            @*<td>
+                    @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                    @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.TransactionID })
+                </td>*@
+        </tr>
+    }
 
 </table>
+<div id="dialog" title="Contact form">
+    <p>appear now</p>
+</div>
+@section Scripts {
+
+    <script type="text/javascript">
+        $(document)
+            .ready(function () {
+                //$("#dialog").dialog({ autoOpen: false, modal: true, show: "blind", hide: "blind" });
+
+                $(".TableRow").click(function () {
+                    var idd = $(this).data("id");
+                    $.ajax({
+                        url: '@Url.Action("Details", "Transaction")'+ '/' +idd,
+                        //success: function (data) {
+                            // your data could be a View or Json or what ever you returned in your action method
+                            // parse your data here
+                            //alert("");
+                            //$("#dialog").dialog("open");
+                            //return false;
+                        //}
+                    });
+                }
+                );
+            });
+    </script>
+}

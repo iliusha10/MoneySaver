@@ -40,9 +40,12 @@ namespace MoneySaver.Controllers
 
         // GET: Transaction/Details/5
         [HttpGet]
-        public ActionResult Details(int id)
+        public ActionResult Details(long id)
         {
-            return View();
+            var tran = _tranService.GetTransaction(id);
+            var model = new TransactionListModel();
+            model.ConvertDtoListToModelList(tran);
+            return View(model);
         }
 
         // GET: Transaction/Create
@@ -63,7 +66,10 @@ namespace MoneySaver.Controllers
             newTransaction.SelectedCategoryType = 2;
             newTransaction.AllCategoriesTypes.Last(x => x.Selected = true);
 
-            newTransaction.AllCategories = GetCategories(username, newTransaction.SelectedCategoryType);
+            newTransaction.AllCategories = new SelectList(new List<SelectListItem>() 
+            { new SelectListItem { Value = "0", Text = "" } }
+                , "Value", "Text");
+            //GetCategories(username, newTransaction.SelectedCategoryType);
             var subcat = new List<SelectListItem>() { new SelectListItem { Value = "0", Text = "Select Category First" } };
             newTransaction.AllSubCategories = new SelectList(subcat, "Value", "Text");
 
@@ -119,9 +125,10 @@ namespace MoneySaver.Controllers
 
         // GET: Transaction/Delete/5
         [HttpGet]
-        public ActionResult Delete(int id)
+        public ActionResult Delete(long id)
         {
-            return View();
+            _tranService.DeleteTransaction(id);
+            return RedirectToAction("Index");
         }
 
         // POST: Transaction/Delete/5
@@ -140,6 +147,21 @@ namespace MoneySaver.Controllers
             }
         }
 
+        public JsonResult GetCategories(long type)
+        {
+            var username = User.Identity.Name;
+            var allCategories = _tranService.GetCategoriesByType(username, type);
+
+            var categories = allCategories
+                        .Select(c => new
+                        {
+                            ID = c.ID,
+                            Text = c.Name
+                        });
+
+            return Json(categories, JsonRequestBehavior.AllowGet);
+        }
+
         public JsonResult GetSubcategories(long category)
         {
             var list = _tranService.GetSubcategories(category);
@@ -150,6 +172,19 @@ namespace MoneySaver.Controllers
             });
 
             return Json(subcategories, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetWallets()
+        {
+            var username = User.Identity.Name;
+            var list = _walletService.GetUserWallets(username);
+            var wallets = list.Select(w => new
+            {
+                ID = w.WalletID,
+                Text = w.Name
+            });
+
+            return Json(wallets, JsonRequestBehavior.AllowGet);
         }
 
         private IEnumerable<SelectListItem> GetCategoryTypes()
@@ -179,21 +214,5 @@ namespace MoneySaver.Controllers
 
             return new SelectList(walletslist, "Value", "Text");
         }
-
-        private IEnumerable<SelectListItem> GetCategories(string user, long type)
-        {
-            var allCategories = _tranService.GetCategoriesByType(user, type);
-
-            var categories = allCategories
-                        .Select(x =>
-                                new SelectListItem
-                                {
-                                    Value = x.ID.ToString(),
-                                    Text = x.Name
-                                });
-
-            return new SelectList(categories, "Value", "Text");
-        }
-
     }
 }

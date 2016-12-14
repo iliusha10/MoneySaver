@@ -38,5 +38,18 @@ namespace MoneySaver.BLL.Interfaces
         /// <param name="category"></param>
         /// <returns></returns>
         IList<SubcategoryDto> GetSubcategories(long category);
+
+        /// <summary>
+        /// Deleting a transaction
+        /// </summary>
+        /// <param name="id"></param>
+        void DeleteTransaction(long id);
+
+        /// <summary>
+        /// Getting transaction by id from Db
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        TransactionListDto GetTransaction(long id);
     }
 }

@@ -35,6 +35,7 @@ namespace MoneySaver.DAL
                         .JoinAlias(() => trans.TransactionCategory, () => cat)
                         .JoinAlias(() => cat.CategoryType, () => type)
                         .Left.JoinAlias(() => trans.TransactionSubcategory, () => sub)
+                        .OrderBy(() => trans.CreateDate).Desc
                         .WhereRestrictionOn(() => acc.Id).IsLike(accountID)
                         .SelectList(list => list
                             .Select(() => trans.Id).WithAlias(() => row.TransactionID)

@@ -29,5 +29,15 @@ namespace MoneySaver.Domain
         public virtual double Amount { get; protected set; }
         public virtual WalletType WalletType { get; protected set; }
         public virtual bool DefaultWallet { get; protected set; }
+
+        public virtual void Add(double amount)
+        {
+            Amount += amount;
+        }
+
+        public virtual void Spend(double amount)
+        {
+            Amount -= amount;
+        }
     }
 }

@@ -90,5 +90,34 @@ namespace MoneySaver.Service
                 throw new FaultException(ex.Message);
             }
         }
+
+
+        public void DeleteTransaction(long id)
+        {
+            try
+            {
+                _transactionBll.DeleteTransaction(id);
+            }
+            catch (Exception ex)
+            {
+                Logger.AddToLog("Failed to Delete transaction", ex);
+                throw new FaultException(ex.Message);
+            }
+        }
+
+
+        public TransactionListDto GetTransaction(long id)
+        {
+            try
+            {
+                var tran = _transactionBll.GetTransaction(id);
+                return tran;
+            }
+            catch (Exception ex)
+            {
+                Logger.AddToLog("Failed to GetTransaction by id from Service", ex);
+                throw new FaultException(ex.Message);
+            }
+        }
     }
 }

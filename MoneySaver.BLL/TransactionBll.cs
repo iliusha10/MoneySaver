@@ -44,6 +44,16 @@ namespace MoneySaver.BLL
             var subCategory = _Dal.GetById<TransactionSubcategory>(dto.SubCategoryID);
             var wallet = _Dal.GetById<Wallet>(dto.WalletID);
             var transaction = TransactionFactory.CreateSimpleTransaction(dto.Value, dto.Comment, category, subCategory, wallet, dto.CreateDate);
+            if (category.CategoryType.Name == TransactionCategoryTypeEnumDto.Income.ToString())
+            {
+                wallet.Add(dto.Value);
+            }
+            else
+            {
+                wallet.Spend(dto.Value);
+            }
+
+            _Dal.SaveUpdate<Wallet>(wallet);
             _Dal.Save<Transaction>(transaction);
         }
 
@@ -62,6 +72,20 @@ namespace MoneySaver.BLL
             var subcategories = _transactionDal.GetSubcategories(category);
 
             return subcategories;
+        }
+
+
+        public void DeleteTransaction(long id)
+        {
+            _Dal.Delete<Transaction>(id);
+        }
+
+
+        public TransactionListDto GetTransaction(long id)
+        {
+            var tran = _Dal.GetById<Transaction>(id);
+            var dto = Adapter.AdaptDomainToTransactionListDto(tran);
+            return dto;
         }
     }
 

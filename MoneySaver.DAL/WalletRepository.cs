@@ -26,17 +26,11 @@ namespace MoneySaver.DAL
                 try
                 {
                     WalletDto row = null;
-                    //Account acc = null;
                     Wallet wal = null;
-
-                    //var accountId = _session.QueryOver<Credentials>()
-                    //    .Where(c => c.UserName == user)
-                    //    .JoinAlias(c => c.Account, () => acc)
-                    //    .Select(x => acc.Id)
-                    //    .SingleOrDefault<long>();
 
                     var walletlist = _session.QueryOver(() => wal)
                         .Where(x => x.Account.Id == accountId)
+                        .OrderBy(() => wal.DefaultWallet).Desc
                         .SelectList(list => list
                             .Select(() => wal.Id).WithAlias(() => row.WalletID)
                             .Select(() => wal.Amount).WithAlias(() => row.Amount)

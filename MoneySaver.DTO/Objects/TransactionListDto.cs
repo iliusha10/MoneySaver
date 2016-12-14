@@ -29,5 +29,9 @@ namespace MoneySaver.DTO.Objects
 
         [DataMember]
         public DateTime CreateDate { get; set; }
+
+        public TransactionListDto()
+        {
+        }
     }
 }

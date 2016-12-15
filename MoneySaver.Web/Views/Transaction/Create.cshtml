@@ -16,19 +16,20 @@
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
             @Html.LabelFor(model => model.CreateDate, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            <div class="col-md-8">
                 @Html.EditorFor(model => model.CreateDate, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.CreateDate, "", new { @class = "text-danger" })
+
             </div>
-            @*<div class="col-md-5">
-                <img src="~/Images/calendar.png" style="width:20px;height:20px;"  />
-            </div>*@
+            <div>
+                <img id="date-picker" class="img-responsive" src="~/Images/calendar.png" style="width:40px;height:40px;" />
+            </div>
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.SelectedWallet, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownListFor(model => model.SelectedWallet, Model.AllUsersWallets)
+                @Html.DropDownListFor(model => model.SelectedWallet, Model.AllUsersWallets, new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.SelectedWallet, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -36,7 +37,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.SelectedCategoryType, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownListFor(model => model.SelectedCategoryType, Model.AllCategoriesTypes)
+                @Html.DropDownListFor(model => model.SelectedCategoryType, Model.AllCategoriesTypes, new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.SelectedCategoryType, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -44,7 +45,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.SelectedCategory, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownListFor(model => model.SelectedCategory, Model.AllCategories)
+                @Html.DropDownListFor(model => model.SelectedCategory, Model.AllCategories, new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.SelectedCategory, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -52,7 +53,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.SelectedSubCategory, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownListFor(model => model.SelectedSubCategory, Model.AllSubCategories)
+                @Html.DropDownListFor(model => model.SelectedSubCategory, Model.AllSubCategories, new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.SelectedSubCategory, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -89,7 +90,7 @@
 <script type="text/javascript">
     $(document)
         .ready(function () {
-            //$("#CreateDate").datepicker();
+            $("#date-picker").datepicker();
 
             var idd = $("#SelectedCategoryType").val();
             getCategories(idd);

@@ -64,11 +64,14 @@ namespace MoneySaver.Models
         [Display(Name = "Wallet")]
         public string WalletName { get; set; }
 
-        [Display(Name = "Category")]
-        public string CategoryName { get; set; }
+        //[Display(Name = "Category")]
+        //public string CategoryName { get; set; }
 
-        [Display(Name = "User name")]
-        public string SubCategoryName { get; set; }
+        //[Display(Name = "Subcategory Name")]
+        //public string SubCategoryName { get; set; }
+
+        [Display(Name = "Category Name")]
+        public string CategoryNameConcat { get; set; }
 
         [Display(Name = "Amount")]
         public double Value { get; set; }
@@ -88,11 +91,12 @@ namespace MoneySaver.Models
             this.TransactionID = dto.TransactionID;
             this.CategoryTypeName = dto.CategoryTypeName;
             this.WalletName = dto.WalletName;
-            this.CategoryName = dto.CategoryName;
-            this.SubCategoryName = dto.SubCategoryName;
+            //this.CategoryName = dto.CategoryName;
+            //this.SubCategoryName = dto.SubCategoryName;
             this.Value = dto.Value;
             this.Comment = dto.Comment;
             this.CreateDate = dto.CreateDate;
+            this.CategoryNameConcat = String.Format("{0}/{1}", dto.CategoryName, dto.SubCategoryName);
         }
     }
 }

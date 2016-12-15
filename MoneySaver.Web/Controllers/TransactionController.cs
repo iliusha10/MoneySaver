@@ -45,6 +45,8 @@ namespace MoneySaver.Controllers
             var tran = _tranService.GetTransaction(id);
             var model = new TransactionListModel();
             model.ConvertDtoListToModelList(tran);
+            
+            //return JavaScript("window.location = 'http://www.google.co.uk'");
             return View(model);
         }
 

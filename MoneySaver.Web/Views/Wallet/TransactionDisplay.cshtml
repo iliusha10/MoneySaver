@@ -1,0 +1,21 @@
+﻿@model IEnumerable<MoneySaver.Models.WalletModel>
+
+<table class="table">
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            @Html.HiddenFor(modelItem => item.WalletID)
+            <td>
+                @Html.DisplayFor(modelItem => item.WalletName)
+                @Html.DisplayFor(modelItem => item.WalletTypeName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Amount)
+                @Html.DisplayFor(modelItem => item.CurrencyAbbreviation)
+            </td>
+
+        </tr>
+    }
+
+</table>

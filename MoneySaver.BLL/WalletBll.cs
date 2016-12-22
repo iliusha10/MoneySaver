@@ -46,10 +46,26 @@ namespace MoneySaver.BLL
             return _walletDal.GetUserWallets(accountId);
         }
 
-        public WalletDto GetDefaultUserWallet(string user)
+        public WalletNamesDto GetDefaultUserWallet(string user)
         {
             var accountId = _accountDal.GetAcountIdByName(user);
-            return _walletDal.GetDefaultUserWallet(accountId);
+            var wallet = _walletDal.GetDefaultUserWallet(accountId);
+            var defWallet = new WalletNamesDto() { WalletID = wallet.WalletID, Name = wallet.Name, DefaultWallet = wallet.DefaultWallet };
+            return defWallet;
         }
+
+        public Wallet GetWalletByTransactionID(long tranID)
+        {
+            var wallet = _walletDal.GetWalletByTransactionID(tranID);
+
+            return wallet;
+        }
+
+        IList<WalletNamesDto> IWalletBll.GetUserWalletsName(string username)
+        {
+            var accountId = _accountDal.GetAcountIdByName(username);
+            return _walletDal.GetUserWalletsName(accountId);
+        }
+
     }
 }

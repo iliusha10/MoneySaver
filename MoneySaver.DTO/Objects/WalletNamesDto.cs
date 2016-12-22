@@ -8,19 +8,18 @@ using System.Threading.Tasks;
 namespace MoneySaver.DTO.Objects
 {
     [DataContract]
-    public class WalletDto
+    public class WalletNamesDto
     {
         [DataMember]
         public long WalletID { get; set; }
         [DataMember]
-        public string CurrencyAbbrviation { get; set; }
-        [DataMember]
         public string Name { get; set; }
         [DataMember]
-        public double Amount { get; set; }
-        [DataMember]
-        public string WalletTypeName { get; set; }
-        [DataMember]
         public bool DefaultWallet { get; set; }
+
+        //public WalletNamesDto ()
+        //{
+
+        //}
     }
 }

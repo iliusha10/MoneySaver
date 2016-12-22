@@ -13,11 +13,14 @@ namespace MoneySaver.BLL
         private readonly ITransactionRepository _transactionDal;
         private readonly IAccountRepository _accountDal;
 
-        public TransactionBll(ITransactionRepository transactionDal, IRepository dal, IAccountRepository accountDal)
+        private readonly IWalletBll _walletBll;
+
+        public TransactionBll(ITransactionRepository transactionDal, IRepository dal, IAccountRepository accountDal, IWalletBll walletBll)
         {
             _transactionDal = transactionDal;
             _Dal = dal;
             _accountDal = accountDal;
+            _walletBll = walletBll;
         }
 
         public IList<TransactionListDto> GetUserTransactions(string user)
@@ -77,6 +80,18 @@ namespace MoneySaver.BLL
 
         public void DeleteTransaction(long id)
         {
+            //var wallet = _walletBll.GetWalletByTransactionID(id);
+            var transaction = _Dal.GetById<Transaction>(id);
+            var wallet = transaction.Walllet;
+
+            if (transaction.TransactionCategory.CategoryType.Name == TransactionCategoryTypeEnumDto.Income.ToString())
+            {
+                wallet.Spend(transaction.Value);
+            }
+            else
+            {
+                wallet.Add(transaction.Value);
+            }
             _Dal.Delete<Transaction>(id);
         }
 

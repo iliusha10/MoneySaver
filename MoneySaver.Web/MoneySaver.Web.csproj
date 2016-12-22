@@ -197,6 +197,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Adapters\WalletAdaptercs.cs" />
     <Compile Include="Bootstrapper.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -205,12 +206,14 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\TransactionController.cs" />
+    <Compile Include="Controllers\WalletController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\CurrencyModel.cs" />
     <Compile Include="Models\TransactionModel.cs" />
+    <Compile Include="Models\WalletModel.cs" />
     <Compile Include="Models\WalletTypeModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -272,6 +275,9 @@
     <Content Include="Content\bootstrap.min.css.map" />
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Images\calendar-resize.png" />
+    <Content Include="Images\ExpenceWallet.png" />
+    <Content Include="Images\IncomeWallet.png" />
+    <Content Include="Images\plus-icon.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
@@ -342,6 +348,8 @@
     <Content Include="Views\Transaction\Index.cshtml" />
     <Content Include="Views\Transaction\Create.cshtml" />
     <Content Include="Views\Transaction\Details.cshtml" />
+    <Content Include="Views\Wallet\TransactionDisplay.cshtml" />
+    <Content Include="Views\Wallet\WalletList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

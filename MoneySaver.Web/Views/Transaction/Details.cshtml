@@ -4,15 +4,13 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<h2>@*Details*@</h2>
 
 <div>
-    <h4>TransactionListModel</h4>
+    <h4>@*TransactionListModel*@</h4>
     <hr />
     <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.TransactionID)
-        </dt>
+            @Html.HiddenFor(model => model.TransactionID)
 
         <dd>
             @Html.DisplayFor(model => model.TransactionID)
@@ -76,8 +74,8 @@
 
     </dl>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.TransactionID }) |
-    @Html.ActionLink("Delete", "Delete", new { id = Model.TransactionID }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+    <p >
+        @Html.ActionLink("Edit", "Edit", new { id = Model.TransactionID }) |
+        @Html.ActionLink("Delete", "Delete", new { id = Model.TransactionID }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>

@@ -8,7 +8,7 @@ namespace MoneySaver.Models
 {
     public class TransactionModel
     {
-
+        [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
         [Display(Name = "Date")]
         public DateTime CreateDate { get; set; }
 
@@ -64,12 +64,6 @@ namespace MoneySaver.Models
         [Display(Name = "Wallet")]
         public string WalletName { get; set; }
 
-        //[Display(Name = "Category")]
-        //public string CategoryName { get; set; }
-
-        //[Display(Name = "Subcategory Name")]
-        //public string SubCategoryName { get; set; }
-
         [Display(Name = "Category Name")]
         public string CategoryNameConcat { get; set; }
 
@@ -78,6 +72,7 @@ namespace MoneySaver.Models
 
         public string Comment { get; set; }
 
+        [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}" )]
         [Display(Name = "Date")]
         public DateTime CreateDate { get; set; }
 

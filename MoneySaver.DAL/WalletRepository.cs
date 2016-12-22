@@ -27,14 +27,20 @@ namespace MoneySaver.DAL
                 {
                     WalletDto row = null;
                     Wallet wal = null;
+                    Currency curr = null;
+                    WalletType wt = null;
 
                     var walletlist = _session.QueryOver(() => wal)
+                        .JoinAlias(() => wal.Currency, () => curr)
+                        .JoinAlias(() => wal.WalletType, () => wt)
                         .Where(x => x.Account.Id == accountId)
                         .OrderBy(() => wal.DefaultWallet).Desc
                         .SelectList(list => list
                             .Select(() => wal.Id).WithAlias(() => row.WalletID)
+                            .Select(() => curr.Abbreviation).WithAlias(() => row.CurrencyAbbrviation)
                             .Select(() => wal.Amount).WithAlias(() => row.Amount)
                             .Select(() => wal.Name).WithAlias(() => row.Name)
+                            .Select(() => wt.Name).WithAlias(() => row.WalletTypeName)
                             .Select(() => wal.DefaultWallet).WithAlias(() => row.DefaultWallet))
                         .TransformUsing(Transformers.AliasToBean<WalletDto>())
                         .List<WalletDto>();
@@ -56,6 +62,65 @@ namespace MoneySaver.DAL
             var defaultWallet = GetUserWallets(accountId).Where(x => x.DefaultWallet == true).FirstOrDefault();
 
             return defaultWallet;
+        }
+
+
+        public Wallet GetWalletByTransactionID(long tranID)
+        {
+            using (var tran = _session.BeginTransaction())
+            {
+                try
+                {
+                    Transaction transaction = null;
+                    Wallet wal = null;
+
+                    var wallet = _session.QueryOver(() => transaction)
+                        .JoinAlias(() => transaction.Walllet, () => wal)
+                        .Where(x => x.Walllet.Id == tranID)
+                        .SingleOrDefault<Wallet>();
+
+                    return wallet;
+
+                }
+                catch (Exception ex)
+                {
+                    Logger.AddToLog("Failed to extract wallet from repository", ex);
+                    tran.Rollback();
+                    return null;
+                }
+            }
+        }
+
+
+        public IList<WalletNamesDto> GetUserWalletsName(long accountId)
+        {
+            using (var tran = _session.BeginTransaction())
+            {
+                try
+                {
+                    WalletNamesDto row = null;
+                    Wallet wal = null;
+
+                    var walletlist = _session.QueryOver(() => wal)
+                        .Where(x => x.Account.Id == accountId)
+                        .OrderBy(() => wal.DefaultWallet).Desc
+                        .SelectList(list => list
+                            .Select(() => wal.Id).WithAlias(() => row.WalletID)
+                            .Select(() => wal.Name).WithAlias(() => row.Name)
+                            .Select(() => wal.DefaultWallet).WithAlias(() => row.DefaultWallet))
+                        .TransformUsing(Transformers.AliasToBean<WalletNamesDto>())
+                        .List<WalletNamesDto>();
+
+                    return walletlist;
+
+                }
+                catch (Exception ex)
+                {
+                    Logger.AddToLog("Failed to extract wallet name list from repository", ex);
+                    tran.Rollback();
+                    return null;
+                }
+            }
         }
     }
 }

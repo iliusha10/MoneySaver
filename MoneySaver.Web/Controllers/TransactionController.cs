@@ -40,45 +40,38 @@ namespace MoneySaver.Controllers
 
         // GET: Transaction/Details/5
         [HttpGet]
-        public ActionResult Details(long id)
+        public PartialViewResult Details(long id)
         {
             var tran = _tranService.GetTransaction(id);
             var model = new TransactionListModel();
             model.ConvertDtoListToModelList(tran);
-            
-            //return JavaScript("window.location = 'http://www.google.co.uk'");
-            return View(model);
+
+            return PartialView(model);
         }
 
         // GET: Transaction/Create
         [HttpGet]
-        public ActionResult Create()
+        public PartialViewResult Create()
         {
             var newTransaction = new TransactionModel();
 
-            var username = User.Identity.Name;
+            var defWallet = _walletService.GetDefaultUserWallet(User.Identity.Name);
+            newTransaction.SelectedWallet = defWallet.WalletID;
 
-            var defWallet = _walletService.GetDefaultUserWallet(username);
-            var walletDtoList = new List<WalletDto> { defWallet };
-            newTransaction.SelectedWallet = walletDtoList.Select(x => x.WalletID).FirstOrDefault();
-            newTransaction.AllUsersWallets = WalletsList(walletDtoList);
+            newTransaction.AllUsersWallets = new List<SelectListItem>() { new SelectListItem { Value = defWallet.WalletID.ToString(), Text = defWallet.Name } };
             newTransaction.AllUsersWallets.First(x => x.Selected = true);
 
             newTransaction.AllCategoriesTypes = GetCategoryTypes();
             newTransaction.SelectedCategoryType = 2;
             newTransaction.AllCategoriesTypes.Last(x => x.Selected = true);
 
-            newTransaction.AllCategories = new SelectList(new List<SelectListItem>() 
-            { new SelectListItem { Value = "0", Text = "" } }
-                , "Value", "Text");
-            //GetCategories(username, newTransaction.SelectedCategoryType);
-            var subcat = new List<SelectListItem>() { new SelectListItem { Value = "0", Text = "Select Category First" } };
-            newTransaction.AllSubCategories = new SelectList(subcat, "Value", "Text");
+            newTransaction.AllCategories = new List<SelectListItem>() { new SelectListItem { Value = "0", Text = "" } };
+            newTransaction.AllSubCategories = new List<SelectListItem>() { new SelectListItem { Value = "0", Text = "Select Category First" } };
 
             newTransaction.CreateDate = DateTime.Now;
             newTransaction.AllCategoriesTypes = GetCategoryTypes();
 
-            return View(newTransaction);
+            return PartialView(newTransaction);
         }
 
         // POST: Transaction/Create
@@ -179,7 +172,7 @@ namespace MoneySaver.Controllers
         public JsonResult GetWallets()
         {
             var username = User.Identity.Name;
-            var list = _walletService.GetUserWallets(username);
+            var list = _walletService.GetUserWalletsName(username);
             var wallets = list.Select(w => new
             {
                 ID = w.WalletID,
@@ -204,17 +197,17 @@ namespace MoneySaver.Controllers
             return new SelectList(categoryTypes, "Value", "Text");
         }
 
-        private IEnumerable<SelectListItem> WalletsList(IList<WalletDto> wallets)
-        {
-            var walletslist = wallets
-                        .Select(x =>
-                                new SelectListItem
-                                {
-                                    Value = x.WalletID.ToString(),
-                                    Text = x.Name
-                                });
+        //private IEnumerable<SelectListItem> WalletsList(IList<WalletDto> wallets)
+        //{
+        //    var walletslist = wallets
+        //                .Select(x =>
+        //                        new SelectListItem
+        //                        {
+        //                            Value = x.WalletID.ToString(),
+        //                            Text = x.Name
+        //                        });
 
-            return new SelectList(walletslist, "Value", "Text");
-        }
+        //    return new SelectList(walletslist, "Value", "Text");
+        //}
     }
 }

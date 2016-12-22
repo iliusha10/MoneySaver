@@ -5,7 +5,7 @@ namespace MoneySaver.DTO.Objects
     [DataContract]
     public class CurrencyDto
     {
-        //public CurrencyDto (long id, string abbrv, string name)
+        //public CurrencyDto(long id, string abbrv, string name)
         //{
         //    CurrencyID = id;
         //    Abbreviation = abbrv;

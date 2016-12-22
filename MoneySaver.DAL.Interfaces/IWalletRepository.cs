@@ -1,4 +1,5 @@
-﻿using MoneySaver.DTO.Objects;
+﻿using MoneySaver.Domain;
+using MoneySaver.DTO.Objects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,5 +13,9 @@ namespace MoneySaver.DAL.Interfaces
         IList<WalletDto> GetUserWallets(long accountId);
 
         WalletDto GetDefaultUserWallet(long accountId);
+
+        Wallet GetWalletByTransactionID(long tranID);
+
+        IList<WalletNamesDto> GetUserWalletsName(long accountId);
     }
 }

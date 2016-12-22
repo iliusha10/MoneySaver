@@ -60,7 +60,7 @@ namespace MoneySaver.Service
             }
         }
 
-        public WalletDto GetDefaultUserWallet(string user)
+        public WalletNamesDto GetDefaultUserWallet(string user)
         {
             try
             {
@@ -70,6 +70,21 @@ namespace MoneySaver.Service
             catch (Exception ex)
             {
                 Logger.AddToLog("Failed to GetDefaultUserWallet from Service", ex);
+                throw new FaultException(ex.Message);
+            }
+        }
+
+
+        public IList<WalletNamesDto> GetUserWalletsName(string username)
+        {
+            try
+            {
+                var names = _walletBll.GetUserWalletsName(username);
+                return names;
+            }
+            catch (Exception ex)
+            {
+                Logger.AddToLog("Failed to GetUserWalletsName from Service", ex);
                 throw new FaultException(ex.Message);
             }
         }

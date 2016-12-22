@@ -1,4 +1,5 @@
 ﻿using MoneySaver.DTO.Objects;
+using MoneySaver.Domain;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,6 +24,15 @@ namespace MoneySaver.BLL.Interfaces
 
         IList<WalletDto> GetUserWallets(string user);
 
-        WalletDto GetDefaultUserWallet(string user);
+        WalletNamesDto GetDefaultUserWallet(string user);
+
+        /// <summary>
+        /// Getting wallet obj by transactionId
+        /// </summary>
+        /// <param name="tranID"></param>
+        /// <returns></returns>
+        Wallet GetWalletByTransactionID(long tranID);
+
+        IList<WalletNamesDto> GetUserWalletsName(string username);
     }
 }

@@ -2,112 +2,203 @@
 
 @{
     ViewBag.Title = "Transactions";
+    var modell = Model.GroupBy(x => x.CreateDate.Date);
 }
 
+
 <h2>Transactions</h2>
+@Html.Action("TransactionDisplay", "Wallet")
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+@*<input type="hidden" id="plusSign" />*@
+<div>
+    <img id="plusSign" width="80" height="80" src="~/Images/plus-icon.png" style=" position: fixed; bottom: 100px; right: 70px;" />
+</div>
+@*<p>
+        @Html.ActionLink("Create New", "Create")
+    </p>*@
 <table class="table">
-    @*<tr>
-            <th>
-                    @Html.DisplayNameFor(model => model.TransactionID)
-                </th>
-            <th>
-                @Html.DisplayNameFor(model => model.WalletName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CategoryTypeName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CategoryName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.SubCategoryName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Value)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Comment)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CreateDate)
-            </th>
-            <th></th>
-        </tr>*@
 
-    @foreach (var item in Model)
+    @foreach (var date in modell)
     {
-        <tr class="TableRow" data-id=@item.TransactionID>
-            <td>
-                @Html.DisplayFor(modelItem => item.CreateDate)
+        <tr>
+            <td class="col-md-2" style="text-align: left; font-family: 'Times New Roman', Times, serif;">
+                <span style="font-size: 40px;"> @Html.DisplayFor(modelItem => date.Key.Day)</span>
+                <span style="text-align:justify;">@Html.DisplayFor(modelItem => date.Key.Month)</span>
+                <span style="">@Html.DisplayFor(modelItem => date.Key.Year)</span>
+                <span style="display: block;">@Html.DisplayFor(modelItem => date.Key.DayOfWeek)</span>
             </td>
             <td>
-                @Html.HiddenFor(modelItem => item.TransactionID)
-            </td>
-            <td>
-                @if (item.CategoryTypeName == "Income")
+                @{double spent = 0;
+                double income = 0;
+
+                foreach (var item in date)
                 {
-                <span style="color:blue;display: block;">@Html.DisplayFor(modelItem => item.CategoryTypeName)</span>
+                    if (item.CategoryTypeName == "Expence")
+                    {
+                        spent += item.Value;
+                    }
+                    else
+                    {
+                        income += item.Value;
+                    }
                 }
-                @if (item.CategoryTypeName == "Expence")
-                {
-                <span style="color:red;display: block;">@Html.DisplayFor(modelItem => item.CategoryTypeName)</span>
                 }
-                <span class"control-label col-md-6">@Html.DisplayFor(modelItem => item.WalletName)</span>
+                @Html.DisplayFor(modelItem => income)/
+                @Html.DisplayFor(modelItem => spent)
+
 
             </td>
-            <td>
-                <span style="display: block;">@Html.DisplayFor(modelItem => item.CategoryNameConcat)</span>
-                <span style="display: block;">@Html.DisplayFor(modelItem => item.Comment)</span>      
-            </td>
-            <td>
-                <span style="font-weight: bold;">@Html.DisplayFor(modelItem => item.Value)</span>
-            </td>
-            @*<td>
-                    @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                    @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.TransactionID })
-                </td>*@
         </tr>
+        <tr>
+            <td class="col-md-7">
+                @foreach (var item in date)
+                {
+                    <table class="table-hover">
+                        <tr class="TableRow" data-id=@item.TransactionID>
+                            @Html.HiddenFor(modelItem => item.TransactionID)
+                            <td class="col-md-1">
+                                @{
+                    if (item.CategoryTypeName == "Income")
+                    {
+
+                        <img src="~/Images/IncomeWallet.png" width="50" height="50" />
+                    }
+                    else
+                    {
+
+                        <img src="~/Images/ExpenceWallet.png" width="50" height="50" />
+                    }
+}
+                            </td>
+                            <td class="col-md-4">
+                                @{if (item.CategoryTypeName == "Income")
+                                {
+                                    <span style="color:blue;display: block;">@Html.DisplayFor(modelItem => item.CategoryTypeName)</span>
+                                }
+                                if (item.CategoryTypeName == "Expence")
+                                {
+                                    <span style="color:red;display: block;">@Html.DisplayFor(modelItem => item.CategoryTypeName)</span>
+                                }
+                                }
+                                <span class"control-label col-md-6">@Html.DisplayFor(modelItem => item.WalletName)</span>
+                            </td>
+                            <td class="col-md-4">
+                                <span style="display: block;">@Html.DisplayFor(modelItem => item.CategoryNameConcat)</span>
+                                <span style="display: block;">@Html.DisplayFor(modelItem => item.Comment)</span>
+                            </td>
+                            <td class="col-md-1">
+                                <span style="font-weight: bold;">@Html.DisplayFor(modelItem => item.Value)</span>
+                            </td>
+                        </tr>
+                    </table>
+                }
+            </td>
+        </tr>
+
     }
 
 </table>
-<div id="dialog" title="Contact form">
+<div id="DetailsDialog" title="Transaction Details">
     <p>appear now</p>
 </div>
+<div id="CreateDialog" title="New Transaction">
+    <p>appear now</p>
+</div>
+
 @section Scripts {
 
     <script type="text/javascript">
         $(document)
             .ready(function () {
-                //$("#dialog").dialog({ autoOpen: false, modal: true, show: "blind", hide: "blind" });
-
                 $(".TableRow").click(function () {
-                    var idd = $(this).data("id");
+                    var tranId = $(this).data("id");
                     //var success = false;
                     $.ajax({
-                        url: '@Url.Action("Details", "Transaction")' + '/' + idd,
-                        //context: document.body,
-                        //async: false,
-                        //success: function () {  //THIS ALSO CHANGED
-                        //    success = true
-                        //}
+                        url: '@Url.Action("Details", "Transaction")' + '/' + tranId,
                         success: function (data) {
-                        // your data could be a View or Json or what ever you returned in your action method
-                        // parse your data here
-                        //alert("");
-                            $("#dialog").dialog("open");
-                        //return false;
+                            $("#DetailsDialog").html(data).dialog({
+                                width: 600
+                            });
                         }
                     });
-                    //if (success) {
-                    //    window.open('http://google.com')
-                    //}
-                }
-                );
+                });
+
+                $("#plusSign").click(function () {
+                    $.ajax({
+                        url: '@Url.Action("Create", "Transaction")',
+                        success: function (data) {
+
+                            $("#CreateDialog").html(data).dialog({
+                                width: 600
+                            });
+
+                            $("#datepicker").datepicker({
+                                buttonImage: '../Images/calendar-resize.png',
+                                buttonImageOnly: true,
+                                changeMonth: true,
+                                changeYear: true,
+                                showOn: 'both',
+                                dateFormat: 'yy/mm/dd',
+                                onSelect: function (date) {
+                                    $("#CreateDate").val(date);
+                                    $("#CreateDate").formatDateTime
+                                }
+                            });
+
+                            var idd = $("#SelectedCategoryType").val();
+                            getCategories(idd);
+
+                            $("#SelectedCategoryType").change(function () {
+                                var catid = $(this).val(); // Use $(this) so you don't traverse the DOM again
+                                getCategories(catid);
+                            });
+
+                            var suCatUrl = '@Url.Action("GetSubcategories", "Transaction")';
+                            var subcategories = $('#SelectedSubCategory');
+                            $("#SelectedCategory").change(function () {
+                                var id = $(this).val(); // Use $(this) so you don't traverse the DOM again
+                                $.getJSON(suCatUrl, { category: id }, function (response) {
+                                    subcategories.empty(); // remove any existing options
+                                    subcategories.append($("<option></option>")
+                             .attr("value", '').text('Please Select'));
+                                    $.each(response, function (index, key) {
+                                        subcategories.append($("<option></option>").attr("value", key.ID).text(key.Text))
+                                    });
+                                });
+                            });
+
+                            var walletUrl = '@Url.Action("GetWallets", "Transaction")';
+                            var wallets = $('#SelectedWallet');
+                            $("#SelectedWallet").click(function () {
+                                $.getJSON(walletUrl, function (response) {
+                                    wallets.empty(); // remove any existing options
+                                    $.each(response, function (index, key) {
+                                        wallets.append($("<option></option>").attr("value", key.ID).text(key.Text))
+                                    });
+                                });
+                            });
+                        }
+                    });
+                });
+
+
+
+
+
             });
+
+
+        function getCategories(id) {
+            var catUrl = '@Url.Action("GetCategories", "Transaction")';
+            var categories = $('#SelectedCategory');
+            $.getJSON(catUrl, { type: id }, function (response) {
+                categories.empty(); // remove any existing options
+                categories.append($("<option></option>")
+         .attr("value", '').text('Please Select'));
+                $.each(response, function (index, key) {
+                    categories.append($("<option></option>").attr("value", key.ID).text(key.Text))
+                });
+            });
+        };
     </script>
 }

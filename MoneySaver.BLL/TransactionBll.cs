@@ -92,6 +92,7 @@ namespace MoneySaver.BLL
             {
                 wallet.Add(transaction.Value);
             }
+            _Dal.SaveUpdate<Wallet>(wallet);
             _Dal.Delete<Transaction>(id);
         }
 

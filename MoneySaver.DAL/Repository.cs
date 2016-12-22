@@ -60,7 +60,7 @@ namespace MoneySaver.DAL
             {
                 try
                 {
-                    var entity = _session.Get<Entity>(id);
+                    var entity = _session.Get<TEntity>(id);
                     _session.Delete(entity);
                     tran.Commit();
                 }

@@ -5,7 +5,7 @@ namespace MoneySaver.DAL.Interfaces
 {
     public interface ITransactionRepository
     {
-        IList<TransactionListDto> GetUserTransactions(long accountID);
+        IList<TransactionDto> GetUserTransactions(long accountID);
 
         IList<CategoryDto> GetCategoriesByType(long accountId, long type);
 

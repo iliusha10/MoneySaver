@@ -10,7 +10,7 @@ namespace MoneySaver.BLL.Interfaces
         /// </summary>
         /// <param name="accountID"></param>
         /// <returns>list of TransactionListDto</returns>
-        IList<TransactionListDto> GetUserTransactions(string user);
+        IList<TransactionDto> GetUserTransactions(string user);
 
         /// <summary>
         /// Getting list of category types from Db
@@ -50,6 +50,6 @@ namespace MoneySaver.BLL.Interfaces
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        TransactionListDto GetTransaction(long id);
+        TransactionDto GetTransaction(long id);
     }
 }

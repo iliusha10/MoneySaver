@@ -48,7 +48,6 @@
     <Compile Include="Objects\SubcategoryDto.cs" />
     <Compile Include="Objects\TransactionCategoryTypeEnumDto.cs" />
     <Compile Include="Objects\TransactionDto.cs" />
-    <Compile Include="Objects\TransactionListDto.cs" />
     <Compile Include="Objects\WalletDto.cs" />
     <Compile Include="Objects\WalletNamesDto.cs" />
     <Compile Include="Objects\WalletTypeDto.cs" />

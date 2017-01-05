@@ -23,7 +23,7 @@ namespace MoneySaver.BLL
             _walletBll = walletBll;
         }
 
-        public IList<TransactionListDto> GetUserTransactions(string user)
+        public IList<TransactionDto> GetUserTransactions(string user)
         {
             var accountId = _accountDal.GetAcountIdByName(user);
             var list = _transactionDal.GetUserTransactions(accountId);
@@ -97,10 +97,10 @@ namespace MoneySaver.BLL
         }
 
 
-        public TransactionListDto GetTransaction(long id)
+        public TransactionDto GetTransaction(long id)
         {
             var tran = _Dal.GetById<Transaction>(id);
-            var dto = Adapter.AdaptDomainToTransactionListDto(tran);
+            var dto = Adapter.AdaptDomainToTransactionDto(tran);
             return dto;
         }
     }

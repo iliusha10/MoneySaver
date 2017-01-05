@@ -59,7 +59,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.SelectedWalletType, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownListFor(model => model.SelectedWalletType, Model.AllWalletTypes)
+                @Html.DropDownListFor(model => model.SelectedWalletType, Model.AllWalletTypes, new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.SelectedWalletType, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -67,7 +67,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.SelectedCurrency, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownListFor(model => model.SelectedCurrency, Model.AllCurrencies)
+                @Html.DropDownListFor(model => model.SelectedCurrency, Model.AllCurrencies, new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.SelectedCurrency, "", new { @class = "text-danger" })
             </div>
         </div>

@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace MoneySaver.Models
 {
-    public class TransactionModel
+    public class CreateTransactionModel
     {
         [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
         [Display(Name = "Date")]
@@ -37,21 +37,6 @@ namespace MoneySaver.Models
 
         public string Comment { get; set; }
 
-
-        public TransactionDto ConvertModelToDto()
-        {
-            var dto = new TransactionDto();
-
-            dto.CategoryTypeID = this.SelectedCategoryType;
-            dto.WalletID = this.SelectedWallet;
-            dto.CategoryID = this.SelectedCategory;
-            dto.SubCategoryID = this.SelectedSubCategory;
-            dto.Value = this.Value;
-            dto.Comment = this.Comment;
-            dto.CreateDate = this.CreateDate;
-
-            return dto;
-        }
     }
 
     public class TransactionListModel
@@ -76,22 +61,5 @@ namespace MoneySaver.Models
         [Display(Name = "Date")]
         public DateTime CreateDate { get; set; }
 
-        public TransactionListModel()
-        {
-
-        }
-
-        public void ConvertDtoListToModelList(TransactionListDto dto)
-        {
-            this.TransactionID = dto.TransactionID;
-            this.CategoryTypeName = dto.CategoryTypeName;
-            this.WalletName = dto.WalletName;
-            //this.CategoryName = dto.CategoryName;
-            //this.SubCategoryName = dto.SubCategoryName;
-            this.Value = dto.Value;
-            this.Comment = dto.Comment;
-            this.CreateDate = dto.CreateDate;
-            this.CategoryNameConcat = String.Format("{0}/{1}", dto.CategoryName, dto.SubCategoryName);
-        }
     }
 }

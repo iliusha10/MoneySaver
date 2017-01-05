@@ -1,4 +1,5 @@
-﻿using MoneySaver.DTO.Objects;
+﻿using MoneySaver.Adapters;
+using MoneySaver.DTO.Objects;
 using MoneySaver.Models;
 using MoneySaver.Service.Interfaces;
 using System;
@@ -26,14 +27,7 @@ namespace MoneySaver.Controllers
         public ActionResult Index()
         {
             var dtolist = _tranService.GetUserTransactions(User.Identity.Name);
-            var modelList = new List<TransactionListModel>();
-
-            foreach (var item in dtolist)
-            {
-                var model = new TransactionListModel();
-                model.ConvertDtoListToModelList(item);
-                modelList.Add(model);
-            }
+            var modelList = TransactionAdapters.TransactionDtoListToModelList(dtolist);
 
             return View(modelList);
         }
@@ -43,8 +37,7 @@ namespace MoneySaver.Controllers
         public PartialViewResult Details(long id)
         {
             var tran = _tranService.GetTransaction(id);
-            var model = new TransactionListModel();
-            model.ConvertDtoListToModelList(tran);
+            var model = TransactionAdapters.TransactionDtoToModel(tran);
 
             return PartialView(model);
         }
@@ -53,36 +46,22 @@ namespace MoneySaver.Controllers
         [HttpGet]
         public PartialViewResult Create()
         {
-            var newTransaction = new TransactionModel();
+            var newTransaction = new CreateTransactionModel();
 
-            var defWallet = _walletService.GetDefaultUserWallet(User.Identity.Name);
-            newTransaction.SelectedWallet = defWallet.WalletID;
-
-            newTransaction.AllUsersWallets = new List<SelectListItem>() { new SelectListItem { Value = defWallet.WalletID.ToString(), Text = defWallet.Name } };
-            newTransaction.AllUsersWallets.First(x => x.Selected = true);
-
-            newTransaction.AllCategoriesTypes = GetCategoryTypes();
-            newTransaction.SelectedCategoryType = 2;
-            newTransaction.AllCategoriesTypes.Last(x => x.Selected = true);
-
-            newTransaction.AllCategories = new List<SelectListItem>() { new SelectListItem { Value = "0", Text = "" } };
-            newTransaction.AllSubCategories = new List<SelectListItem>() { new SelectListItem { Value = "0", Text = "Select Category First" } };
-
-            newTransaction.CreateDate = DateTime.Now;
-            newTransaction.AllCategoriesTypes = GetCategoryTypes();
+            FillModel(newTransaction);
 
             return PartialView(newTransaction);
         }
 
         // POST: Transaction/Create
         [HttpPost]
-        public ActionResult Create(TransactionModel model)
+        public ActionResult Create(CreateTransactionModel model)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
-                    var dto = model.ConvertModelToDto();
+                    var dto = TransactionAdapters.CreateTransactionModelToDto(model);
                     _tranService.SubmitTransaction(dto);
                     return RedirectToAction("Index");
                 }
@@ -97,14 +76,17 @@ namespace MoneySaver.Controllers
 
         // GET: Transaction/Edit/5
         [HttpGet]
-        public ActionResult Edit(int id)
+        public PartialViewResult Edit(long id)
         {
-            return View();
+            var tran = _tranService.GetTransaction(id);
+            var model = TransactionAdapters.CreateTransactionDtoToModel(tran);
+            FillModel(model, tran);
+            return PartialView(model);
         }
 
         // POST: Transaction/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(long id, FormCollection collection)
         {
             try
             {
@@ -118,27 +100,20 @@ namespace MoneySaver.Controllers
             }
         }
 
-        // GET: Transaction/Delete/5
-        [HttpGet]
-        public ActionResult Delete(long id)
-        {
-            _tranService.DeleteTransaction(id);
-            return RedirectToAction("Index");
-        }
-
         // POST: Transaction/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public JsonResult Delete(long id)
         {
             try
             {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
+                _tranService.DeleteTransaction(id);
+                return Json(new { success = true });
+                //return RedirectToAction("Index");
             }
             catch
             {
-                return View();
+                return Json(new { success = false });
+                //return View();
             }
         }
 
@@ -209,5 +184,36 @@ namespace MoneySaver.Controllers
 
         //    return new SelectList(walletslist, "Value", "Text");
         //}
+
+        private void FillModel(CreateTransactionModel model, TransactionDto tran = null)
+        {
+            if (tran == null)
+            {
+                var defWallet = _walletService.GetDefaultUserWallet(User.Identity.Name);
+                model.SelectedWallet = defWallet.WalletID;
+                model.AllUsersWallets = new List<SelectListItem>() { new SelectListItem { Value = defWallet.WalletID.ToString(), Text = defWallet.Name } };
+                model.AllUsersWallets.First(x => x.Selected = true);
+
+                model.AllCategoriesTypes = GetCategoryTypes();
+                model.SelectedCategoryType = 2;
+                model.AllCategoriesTypes.Last(x => x.Selected = true);
+
+                model.AllCategories = new List<SelectListItem>() { new SelectListItem { Value = "0", Text = "" } };
+                model.AllSubCategories = new List<SelectListItem>() { new SelectListItem { Value = "0", Text = "Select Category First" } };
+
+                model.CreateDate = DateTime.Now;
+            }
+            else
+            {
+                model.AllUsersWallets = new List<SelectListItem>() { new SelectListItem { Value = "0", Text = "" } };
+                model.SelectedWallet = tran.WalletID;
+
+                model.AllCategoriesTypes = new List<SelectListItem>() { new SelectListItem { Value = "0", Text = "" } };
+                model.AllCategories = new List<SelectListItem>() { new SelectListItem { Value = "0", Text = "" } };
+                model.AllSubCategories = new List<SelectListItem>() { new SelectListItem { Value = "0", Text = "" } };
+
+            }
+
+        }
     }
 }

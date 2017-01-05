@@ -18,7 +18,7 @@ namespace MoneySaver.Service
         }
 
 
-        public IList<TransactionListDto> GetUserTransactions(string user)
+        public IList<TransactionDto> GetUserTransactions(string user)
         {
             try
             {
@@ -106,7 +106,7 @@ namespace MoneySaver.Service
         }
 
 
-        public TransactionListDto GetTransaction(long id)
+        public TransactionDto GetTransaction(long id)
         {
             try
             {

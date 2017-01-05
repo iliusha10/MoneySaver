@@ -15,13 +15,13 @@ namespace MoneySaver.DAL
         {
         }
 
-        public IList<TransactionListDto> GetUserTransactions(long accountID)
+        public IList<TransactionDto> GetUserTransactions(long accountID)
         {
             using (var tran = _session.BeginTransaction())
             {
                 try
                 {
-                    TransactionListDto row = null;
+                    TransactionDto row = null;
                     Transaction trans = null;
                     TransactionCategory cat = null;
                     TransactionSubcategory sub = null;
@@ -46,8 +46,8 @@ namespace MoneySaver.DAL
                             .Select(() => trans.Value).WithAlias(() => row.Value)
                             .Select(() => trans.Comment).WithAlias(() => row.Comment)
                             .Select(() => trans.CreateDate).WithAlias(() => row.CreateDate))
-                        .TransformUsing(Transformers.AliasToBean<TransactionListDto>())
-                        .List<TransactionListDto>();
+                        .TransformUsing(Transformers.AliasToBean<TransactionDto>())
+                        .List<TransactionDto>();
 
                     return tranlist;
 

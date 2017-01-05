@@ -197,6 +197,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Adapters\TransactionAdapters.cs" />
     <Compile Include="Adapters\WalletAdaptercs.cs" />
     <Compile Include="Bootstrapper.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
@@ -275,6 +276,8 @@
     <Content Include="Content\bootstrap.min.css.map" />
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Images\calendar-resize.png" />
+    <Content Include="Images\Delete.png" />
+    <Content Include="Images\Edit.png" />
     <Content Include="Images\ExpenceWallet.png" />
     <Content Include="Images\IncomeWallet.png" />
     <Content Include="Images\plus-icon.png" />
@@ -350,6 +353,7 @@
     <Content Include="Views\Transaction\Details.cshtml" />
     <Content Include="Views\Wallet\TransactionDisplay.cshtml" />
     <Content Include="Views\Wallet\WalletList.cshtml" />
+    <Content Include="Views\Transaction\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

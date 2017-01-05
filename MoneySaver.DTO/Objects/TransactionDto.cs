@@ -7,16 +7,27 @@ namespace MoneySaver.DTO.Objects
     public class TransactionDto
     {
         [DataMember]
+        public long TransactionID { get; set; }
+
+        [DataMember]
         public long CategoryTypeID { get; set; }
+        [DataMember]
+        public string CategoryTypeName { get; set; }
 
         [DataMember]
         public long WalletID { get; set; }
+        [DataMember]
+        public string WalletName { get; set; }
 
         [DataMember]
         public long CategoryID { get; set; }
+        [DataMember]
+        public string CategoryName { get; set; }
 
         [DataMember]
         public long SubCategoryID { get; set; }
+        [DataMember]
+        public string SubCategoryName { get; set; }
 
         [DataMember]
         public double Value { get; set; }
@@ -26,5 +37,9 @@ namespace MoneySaver.DTO.Objects
 
         [DataMember]
         public DateTime CreateDate { get; set; }
+
+        public TransactionDto()
+        {
+        }
     }
 }

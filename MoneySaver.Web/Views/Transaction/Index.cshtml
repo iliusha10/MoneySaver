@@ -9,13 +9,10 @@
 <h2>Transactions</h2>
 @Html.Action("TransactionDisplay", "Wallet")
 
-@*<input type="hidden" id="plusSign" />*@
 <div>
     <img id="plusSign" width="80" height="80" src="~/Images/plus-icon.png" style=" position: fixed; bottom: 100px; right: 70px;" />
 </div>
-@*<p>
-        @Html.ActionLink("Create New", "Create")
-    </p>*@
+
 <table class="table">
 
     @foreach (var date in modell)
@@ -68,7 +65,7 @@
 
                         <img src="~/Images/ExpenceWallet.png" width="50" height="50" />
                     }
-}
+                                }
                             </td>
                             <td class="col-md-4">
                                 @{if (item.CategoryTypeName == "Income")
@@ -99,10 +96,10 @@
 
 </table>
 <div id="DetailsDialog" title="Transaction Details">
-    <p>appear now</p>
+    @*<p>appear now</p>*@
 </div>
 <div id="CreateDialog" title="New Transaction">
-    <p>appear now</p>
+    @*<p>appear now</p>*@
 </div>
 
 @section Scripts {
@@ -112,15 +109,24 @@
             .ready(function () {
                 $(".TableRow").click(function () {
                     var tranId = $(this).data("id");
-                    //var success = false;
+
                     $.ajax({
                         url: '@Url.Action("Details", "Transaction")' + '/' + tranId,
                         success: function (data) {
                             $("#DetailsDialog").html(data).dialog({
                                 width: 600
                             });
+
+                            $("#DeleteIcon").click(function () {
+                                DeleteTransaction(tranId);
+                            });
+
+                            $("#EditIcon").click(function () {
+                                EditTransaction(tranId);
+                            });
                         }
                     });
+
                 });
 
                 $("#plusSign").click(function () {
@@ -181,10 +187,6 @@
                     });
                 });
 
-
-
-
-
             });
 
 
@@ -200,5 +202,41 @@
                 });
             });
         };
+
+        function DeleteTransaction(tranId) {
+            var url = '@Url.Action("Delete", "Transaction")' + '/' + tranId;
+            $.ajax({
+                url: url,
+                type: 'POST',
+                success: function (result) {
+                    UIResponce("Transaction Deleted Successfully");
+                },
+                //error: function (jqXHR, textStatus, errorThrown) { someErrorFunction(); }
+                error: function (jqXHR) { UIResponce(jqXHR); }
+            });
+        };
+
+        function EditTransaction(tranId) {
+            var url = '@Url.Action("Edit", "Transaction")' + '/' + tranId;
+            $.ajax({
+                url: url,
+                type: 'GET',
+                success: function (result) {
+                    $("#DetailsDialog").html(result).dialog({
+                        width: 600
+                    });
+                },
+                //error: function (jqXHR) { UIResponce(jqXHR); }
+            });
+        };
+
+        function UIResponce(Text) {
+            $("#DetailsDialog").html(Text).dialog({
+                width: 600
+            });
+            setTimeout(function () {// wait for 5 secs(2)
+                location.reload(); // then reload the page.(3)
+            }, 2000);
+        }
     </script>
 }

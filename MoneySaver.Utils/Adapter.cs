@@ -60,16 +60,20 @@ namespace MoneySaver.BLL
             return dtoList;
         }
 
-        public static TransactionListDto AdaptDomainToTransactionListDto(Transaction tran)
+        public static TransactionDto AdaptDomainToTransactionDto(Transaction tran)
         {
-            var tranDto = new TransactionListDto();
+            var tranDto = new TransactionDto();
+            tranDto.CategoryID = tran.TransactionCategory.Id;
             tranDto.CategoryName = tran.TransactionCategory.CategoryName;
+            tranDto.CategoryTypeID = tran.TransactionCategory.CategoryType.Id;
             tranDto.CategoryTypeName = tran.TransactionCategory.CategoryType.Name;
             tranDto.Comment = tran.Comment;
             tranDto.CreateDate= tran.CreateDate;
+            tranDto.SubCategoryID = tran.TransactionSubcategory.Id;
             tranDto.SubCategoryName = tran.TransactionSubcategory.SubcategoryName;
             tranDto.TransactionID = tran.Id;
             tranDto.Value = tran.Value;
+            tranDto.WalletID = tran.Walllet.Id;
             tranDto.WalletName = tran.Walllet.Name;
 
             return tranDto;

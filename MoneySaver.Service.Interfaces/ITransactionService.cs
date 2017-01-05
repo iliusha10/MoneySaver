@@ -8,7 +8,7 @@ namespace MoneySaver.Service.Interfaces
     public interface ITransactionService
     {
         [OperationContract]
-        IList<TransactionListDto> GetUserTransactions(string user);
+        IList<TransactionDto> GetUserTransactions(string user);
 
         [OperationContract]
         IList<CategoryTypeDto> GetAllCategoryTypes();
@@ -26,6 +26,6 @@ namespace MoneySaver.Service.Interfaces
         void DeleteTransaction(long id);
 
         [OperationContract]
-        TransactionListDto GetTransaction(long id);
+        TransactionDto GetTransaction(long id);
     }
 }

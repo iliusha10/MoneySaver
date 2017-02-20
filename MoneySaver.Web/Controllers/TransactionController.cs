@@ -55,7 +55,7 @@ namespace MoneySaver.Controllers
 
         // POST: Transaction/Create
         [HttpPost]
-        public ActionResult Create(CreateTransactionModel model)
+        public JsonResult Create(CreateTransactionModel model)
         {
             if (ModelState.IsValid)
             {
@@ -63,15 +63,15 @@ namespace MoneySaver.Controllers
                 {
                     var dto = TransactionAdapters.CreateTransactionModelToDto(model);
                     _tranService.SubmitTransaction(dto);
-                    return RedirectToAction("Index");
+                    return Json(new { success = true });
                 }
                 catch
                 {
-                    return View();
+                    return Json(new { success = false });
                 }
             }
             else
-                return View();
+                return Json(new { success = false });
         }
 
         // GET: Transaction/Edit/5
@@ -116,6 +116,7 @@ namespace MoneySaver.Controllers
                 //return View();
             }
         }
+
 
         public JsonResult GetCategories(long type)
         {
@@ -187,33 +188,19 @@ namespace MoneySaver.Controllers
 
         private void FillModel(CreateTransactionModel model, TransactionDto tran = null)
         {
+            model.AllCategoriesTypes = GetCategoryTypes();
+
             if (tran == null)
             {
-                var defWallet = _walletService.GetDefaultUserWallet(User.Identity.Name);
-                model.SelectedWallet = defWallet.WalletID;
-                model.AllUsersWallets = new List<SelectListItem>() { new SelectListItem { Value = defWallet.WalletID.ToString(), Text = defWallet.Name } };
-                model.AllUsersWallets.First(x => x.Selected = true);
-
-                model.AllCategoriesTypes = GetCategoryTypes();
-                model.SelectedCategoryType = 2;
-                model.AllCategoriesTypes.Last(x => x.Selected = true);
-
-                model.AllCategories = new List<SelectListItem>() { new SelectListItem { Value = "0", Text = "" } };
                 model.AllSubCategories = new List<SelectListItem>() { new SelectListItem { Value = "0", Text = "Select Category First" } };
-
                 model.CreateDate = DateTime.Now;
             }
             else
             {
-                model.AllUsersWallets = new List<SelectListItem>() { new SelectListItem { Value = "0", Text = "" } };
-                model.SelectedWallet = tran.WalletID;
-
-                model.AllCategoriesTypes = new List<SelectListItem>() { new SelectListItem { Value = "0", Text = "" } };
-                model.AllCategories = new List<SelectListItem>() { new SelectListItem { Value = "0", Text = "" } };
                 model.AllSubCategories = new List<SelectListItem>() { new SelectListItem { Value = "0", Text = "" } };
-
             }
-
+            model.AllUsersWallets = new List<SelectListItem>() { new SelectListItem { Value = "0", Text = "" } };
+            model.AllCategories = new List<SelectListItem>() { new SelectListItem { Value = "0", Text = "" } };
         }
     }
 }

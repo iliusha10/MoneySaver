@@ -33,6 +33,23 @@ namespace MoneySaver.BLL.Interfaces
         /// <returns></returns>
         Wallet GetWalletByTransactionID(long tranID);
 
+        /// <summary>
+        /// Get user wallets names from DB
+        /// </summary>
+        /// <param name="username"></param>
+        /// <returns></returns>
         IList<WalletNamesDto> GetUserWalletsName(string username);
+
+        /// <summary>
+        /// Saving new created wallet in DB
+        /// </summary>
+        /// <param name="dto"></param>
+        void SaveWallet(WalletDto dto, string username);
+
+        /// <summary>
+        /// Get Wallet by ID
+        /// </summary>
+        /// <param name="id"></param>
+        WalletDto GetWallet(long id);
     }
 }

@@ -7,7 +7,7 @@ namespace MoneySaver.DAL.Interfaces
     {
         void Save<TEntity>(TEntity entity) where TEntity : Entity;
         void SaveUpdate<TEntity>(TEntity entity) where TEntity : Entity;
-        void Delete<TEntity>(long id);
+        void Delete<TEntity>(long id) where TEntity : Entity;
         TEntity GetById<TEntity>(long id) where TEntity : Entity;
         IList<TEntity> GetAll<TEntity>() where TEntity : Entity;
     }

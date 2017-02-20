@@ -6,14 +6,14 @@
 
 <h2>WalletList</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
+<p id="CreateWallet">
+    <img id="plusSign" width="30" height="30" src="~/Images/plus-icon.png" />
 </p>
 <table class="table">
     <tr>
-        <th>
+        @*<th>
             @Html.DisplayNameFor(model => model.WalletID)
-        </th>
+        </th>*@
         <th>
             @Html.DisplayNameFor(model => model.WalletName)
         </th>
@@ -32,12 +32,11 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
+@foreach (var item in Model)
+{
+    <tr class="TableRow" data-id=@item.WalletID>
         <td>
-            @Html.DisplayFor(modelItem => item.WalletID)
-        </td>
-        <td>
+            @Html.HiddenFor(modelItem => item.WalletID)
             @Html.DisplayFor(modelItem => item.WalletName)
         </td>
         <td>
@@ -52,12 +51,156 @@
         <td>
             @Html.DisplayFor(modelItem => item.DefaultWallet)
         </td>
-        <td>
+        @*<td>
             @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
             @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
             @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-        </td>
+        </td>*@
     </tr>
 }
 
 </table>
+
+<div id="DetailsDialog" title="Wallet Details">
+    @*<p>appear now</p>*@
+</div>
+<div id="CreateDialog" title="New Wallet">
+    @*<p>appear now</p>*@
+</div>
+
+@section Scripts {
+
+<script type="text/javascript">
+        $(document)
+            .ready(function () {
+                $(".TableRow").click(function () {
+                    var Id = $(this).data("id");
+
+                    $.ajax({
+                        url: '@Url.Action("Details", "Wallet")' + '/' + Id,
+                        success: function (data) {
+                            $("#DetailsDialog").html(data).dialog({
+                                width: 600
+                            });
+
+                            $("#DeleteIcon").click(function () {
+                                DeleteWallet(Id);
+                            });
+
+                            $("#EditIcon").click(function () {
+                                EditWallet(Id);
+                            });
+                        }
+                    });
+
+                });
+
+                $("#plusSign").click(function () {
+                    $.ajax({
+                        url: '@Url.Action("Create", "Wallet")',
+                        success: function (data) {
+                            $("#CreateDialog").html(data).dialog({
+                                width: 600,
+                                buttons: [{
+                                    text: "Save",
+                                    click: function () {
+                                        var $form = $("#form");
+                                        if ($form.valid()){
+                                            var data = getFormData($form);
+                                        //console.log(data);
+                                        $.ajax({
+                                            type: 'POST',
+                                            url: '@Url.Action("Create", "Wallet")',
+                                            data: data,
+                                            dataType: "json",
+                                            success: function (resultData) { UIResponce("Save Complete") }
+                                            //error:
+                                        });
+                                        $(this).dialog("close");
+                                        location.reload();
+                                        }
+                                    }
+                                }
+                                ]
+                            });
+
+                            getWalletTypes();
+
+                            getCurrencies();
+                        }
+                    });
+                });
+
+            });
+
+    function getWalletTypes() {
+        var walletTypesUrl = '@Url.Action("GetWalletTypes", "Wallet")';
+        var walletTypes = $('#SelectedWalletType');
+        $.getJSON(walletTypesUrl, function (response) {
+            walletTypes.empty(); // remove any existing options
+            $.each(response, function (index, key) {
+                walletTypes.append($("<option></option>").attr("value", key.ID).text(key.Text))
+            });
+        });
+    }
+
+    function getCurrencies() {
+        var currenciesUrl = '@Url.Action("GetCurrencies", "Wallet")';
+        var currencies = $('#SelectedCurrency');
+        $.getJSON(currenciesUrl, function (response) {
+            currencies.empty(); // remove any existing options
+            $.each(response, function (index, key) {
+                currencies.append($("<option></option>").attr("value", key.ID).text(key.Text))
+            });
+        });
+    }
+
+    function getFormData($form) {
+        var unindexed_array = $form.serializeArray();
+        var indexed_array = {};
+
+        $.map(unindexed_array, function (n, i) {
+            indexed_array[n['name']] = n['value'];
+        });
+
+        return indexed_array;
+    }
+
+    function DeleteWallet(Id) {
+        var url = '@Url.Action("Delete", "Wallet")' + '/' + Id;
+        $.ajax({
+            url: url,
+            type: 'POST',
+            success: function (result) {
+                UIResponce("Transaction Deleted Successfully");
+            },
+            //error: function (jqXHR, textStatus, errorThrown) { someErrorFunction(); }
+            error: function (jqXHR) { UIResponce(jqXHR); }
+        });
+    };
+
+    function EditWallet(Id) {
+        var url = '@Url.Action("Edit", "Wallet")' + '/' + Id;
+        $.ajax({
+            url: url,
+            type: 'GET',
+            success: function (result) {
+                $("#DetailsDialog").html(result).dialog({
+                    width: 600
+                });
+                getWallets();
+            },
+            //error: function (jqXHR) { UIResponce(jqXHR); }
+        });
+    };
+
+    function UIResponce(Text) {
+        $("#DetailsDialog").html(Text).dialog({
+            width: 600
+        });
+        setTimeout(function () {// wait for 5 secs(2)
+            location.reload(); // then reload the page.(3)
+        }, 2000);
+    }
+    </script>
+}

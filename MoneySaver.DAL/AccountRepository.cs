@@ -59,5 +59,26 @@ namespace MoneySaver.DAL
 
             return accountId;
         }
+
+
+        public Account GetAcountByName(string name)
+        {
+            //Account acc = null;
+
+            //var account = _session.QueryOver<Credentials>()
+            //    .Where(c => c.UserName == name)
+            //    .JoinAlias(c => c.Account, () => acc)
+            //    .SingleOrDefault<Account>();
+
+            Account acc = null;
+            Credentials cr = null;
+
+            var account = _session.QueryOver<Account>(()=> acc)
+                .JoinAlias(()=> acc.CredentialsList, () => cr)
+                .Where(()=>cr.UserName == name) 
+                .SingleOrDefault<Account>();
+
+            return account;
+        }
     }
 }

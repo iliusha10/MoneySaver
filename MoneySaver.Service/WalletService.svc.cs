@@ -88,5 +88,33 @@ namespace MoneySaver.Service
                 throw new FaultException(ex.Message);
             }
         }
+
+
+        public void SaveWallet(WalletDto dto, string username)
+        {
+            try
+            {
+                _walletBll.SaveWallet(dto, username);
+            }
+            catch (Exception ex)
+            {
+                Logger.AddToLog("Failed to save wallet", ex);
+                throw new FaultException(ex.Message);
+            }
+        }
+
+
+        public WalletDto GetWallet(long id)
+        {
+            try
+            {
+                return _walletBll.GetWallet(id);
+            }
+            catch (Exception ex)
+            {
+                Logger.AddToLog("Failed to save wallet", ex);
+                throw new FaultException(ex.Message);
+            }
+        }
     }
 }

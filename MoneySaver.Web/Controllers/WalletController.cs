@@ -37,31 +37,45 @@ namespace MoneySaver.Controllers
         }
 
         // GET: Wallet/Details/5
-        public ActionResult Details(int id)
+        [HttpGet]
+        public PartialViewResult Details(long id)
         {
-            return View();
+            var walletDto = _walletService.GetWallet(id);
+            var model = WalletAdaptercs.WalletDtoToWalletModel(walletDto);
+
+            return PartialView(model);
         }
 
         // GET: Wallet/Create
-        public ActionResult Create()
+        [HttpGet]
+        public PartialViewResult Create()
         {
-            return View();
+            var newWallet = new CreateWalletModel();
+
+            FillWalletModel(newWallet);
+
+            return PartialView(newWallet);
         }
 
         // POST: Wallet/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public JsonResult Create(CreateWalletModel model)
         {
-            try
+            if (ModelState.IsValid)
             {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
+                try
+                {
+                    var dto = WalletAdaptercs.CreateWalletModelToDto(model);
+                    _walletService.SaveWallet(dto, User.Identity.Name);
+                    return Json(new { success = true });
+                }
+                catch
+                {
+                    return Json(new { success = false });
+                }
             }
-            catch
-            {
-                return View();
-            }
+            else
+                return Json(new { success = false });
         }
 
         // GET: Wallet/Edit/5
@@ -100,6 +114,36 @@ namespace MoneySaver.Controllers
             {
                 return View();
             }
+        }
+
+        public JsonResult GetCurrencies()
+        {
+            var list = _walletService.GetAllCurrencies();
+            var currencies = list.Select(w => new
+            {
+                ID = w.CurrencyID,
+                Text = w.Abbreviation
+            });
+
+            return Json(currencies, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetWalletTypes()
+        {
+            var list = _walletService.GetAllWalletTypes();
+            var walletTypes = list.Select(w => new
+            {
+                ID = w.WalletTypeID,
+                Text = w.Name
+            });
+
+            return Json(walletTypes, JsonRequestBehavior.AllowGet);
+        }
+
+        private void FillWalletModel(CreateWalletModel model)
+        {
+                model.AllCurrencys = new List<SelectListItem>() { new SelectListItem { Value = "0", Text = "" } };
+                model.AllWalletTypes = new List<SelectListItem>() { new SelectListItem { Value = "0", Text = "" } };
         }
     }
 }

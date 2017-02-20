@@ -1,4 +1,5 @@
-﻿using MoneySaver.DTO;
+﻿using MoneySaver.Domain;
+using MoneySaver.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +11,7 @@ namespace MoneySaver.DAL.Interfaces
     public interface IAccountRepository
     {
         LoginDto GetCredentialsByEmail(string email);
-
         long GetAcountIdByName(string name);
+        Account GetAcountByName(string name);
     }
 }

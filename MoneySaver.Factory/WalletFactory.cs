@@ -9,9 +9,8 @@ namespace MoneySaver.Factory
 {
     public static class WalletFactory
     {
-        public static Wallet CreateWallet(Account account, Currency currency, string name, WalletType walletType, bool defaultW)
+        public static Wallet CreateWallet(Account account, Currency currency, string name, WalletType walletType, bool defaultW, double amount = 0)
         {
-            double amount = 0;
             var wallet = new Wallet(account, currency, amount, name, walletType, defaultW);
 
             return wallet;

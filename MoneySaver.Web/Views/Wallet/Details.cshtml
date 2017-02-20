@@ -1,0 +1,52 @@
+﻿@model MoneySaver.Models.WalletModel
+
+<div>
+    <h4>WalletModel</h4>
+    <hr />
+    <dl class="dl-horizontal">
+
+        <dt>
+            @Html.DisplayNameFor(model => model.WalletName)
+        </dt>
+
+        <dd>
+            @Html.HiddenFor(model => model.WalletID)
+            @Html.DisplayFor(model => model.WalletName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CurrencyAbbreviation)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CurrencyAbbreviation)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Amount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Amount)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.WalletTypeName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.WalletTypeName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DefaultWallet)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DefaultWallet)
+        </dd>
+
+    </dl>
+</div>
+<img src="~/Images/Edit.png" id="EditIcon" width="50" height="50" />
+<img src="~/Images/Delete.png" id="DeleteIcon" width="50" height="50" />

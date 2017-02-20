@@ -1,12 +1,12 @@
 ﻿html {
-    background-color: #e2e2e2;
+    background-color: #00ff90;
     margin: 0;
     padding: 0;
 }
 
 body {
-    background-color: #fff;
-    border-top: solid 10px #000;
+    background-color: #000;
+    border-top: solid 10px #00ff90;
     color: #333;
     font-size: .85em;
     font-family: "Segoe UI", Verdana, Helvetica, Sans-Serif;
@@ -99,13 +99,13 @@ h5, h6 {
 }
 
 #body {
-    background-color: #efeeef;
+    background-color: #000;
     clear: both;
     padding-bottom: 35px;
 }
 
     .main-content {
-        background: url("../Images/accent.png") no-repeat;
+        background: url("../Images/Logo.png") no-repeat;
         padding-left: 10px;
         padding-top: 30px;
     }

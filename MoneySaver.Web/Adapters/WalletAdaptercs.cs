@@ -15,19 +15,39 @@ namespace MoneySaver.Adapters
 
             foreach (var dto in dtolist)
             {
-                var model = new WalletModel();
-
-                model.Amount = dto.Amount;
-                model.CurrencyAbbreviation = dto.CurrencyAbbrviation;
-                model.DefaultWallet = dto.DefaultWallet;
-                model.WalletID = dto.WalletID;
-                model.WalletName = dto.Name;
-                model.WalletTypeName = dto.WalletTypeName;
+                var model = WalletDtoToWalletModel(dto);
 
                 modellist.Add(model);
             }
 
             return modellist;
+        }
+
+        public static WalletDto CreateWalletModelToDto (CreateWalletModel model)
+        {
+            var dto = new WalletDto();
+
+            dto.Amount = model.Value;
+            dto.CurrencyID = model.SelectedCurrency;
+            dto.DefaultWallet = model.DefaultWallet;
+            dto.Name = model.WalletName;
+            dto.WalletTypeId = model.SelectedWalletType;
+
+            return dto;
+        }
+
+        public static WalletModel WalletDtoToWalletModel (WalletDto dto)
+        {
+            var model = new WalletModel();
+
+            model.Amount = dto.Amount;
+            model.CurrencyAbbreviation = dto.CurrencyAbbrviation;
+            model.DefaultWallet = dto.DefaultWallet;
+            model.WalletID = dto.WalletID;
+            model.WalletName = dto.Name;
+            model.WalletTypeName = dto.WalletTypeName;
+
+            return model;
         }
     }
 }

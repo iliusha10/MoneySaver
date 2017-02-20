@@ -78,5 +78,18 @@ namespace MoneySaver.BLL
 
             return tranDto;
         }
+
+        public static WalletDto AdaptDomainToWalletDto(Wallet wallet)
+        {
+            var dto = new WalletDto();
+            dto.Amount = wallet.Amount;
+            dto.CurrencyAbbrviation = wallet.Currency.Abbreviation;
+            dto.DefaultWallet = wallet.DefaultWallet;
+            dto.Name = wallet.Name;
+            dto.WalletID = wallet.Id;
+            dto.WalletTypeName = wallet.WalletType.Name;
+
+            return dto;
+        }
     }
 }

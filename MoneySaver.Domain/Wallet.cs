@@ -39,5 +39,10 @@ namespace MoneySaver.Domain
         {
             Amount -= amount;
         }
+
+        public virtual void AmendDefaultBit(bool def)
+        {
+            DefaultWallet = def;
+        }
     }
 }

@@ -25,5 +25,11 @@ namespace MoneySaver.Service.Interfaces
 
         [OperationContract]
         IList<WalletNamesDto> GetUserWalletsName(string username);
+
+        [OperationContract]
+        void SaveWallet(WalletDto dto, string username);
+
+        [OperationContract]
+        WalletDto GetWallet(long id);
     }
 }

@@ -8,7 +8,7 @@ using System.Collections.Generic;
 
 namespace MoneySaver.DAL
 {
-    public class Repository: IRepository
+    public class Repository: IRepository 
     {
         protected readonly ISession _session;
         private readonly ISessionManager _sessionManager;
@@ -54,7 +54,7 @@ namespace MoneySaver.DAL
             }
         }
 
-        public void Delete<TEntity>(long id)
+        public void Delete<TEntity>(long id) where TEntity : Entity
         {
             using (var tran = _session.BeginTransaction())
             {
@@ -84,7 +84,7 @@ namespace MoneySaver.DAL
                 catch(Exception ex)
                 {
                     Logger.AddToLog(ex);
-                    return null;
+                    return default(TEntity);
                 }
             }
         }
@@ -96,7 +96,7 @@ namespace MoneySaver.DAL
             {
                 try
                 {
-                    var res = _session.QueryOver<TEntity>().List();
+                    var res = _session.QueryOver<TEntity>().List<TEntity>();
                     return res;
                 }
                 catch (Exception ex)

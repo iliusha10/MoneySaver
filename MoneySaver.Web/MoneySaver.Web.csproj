@@ -45,7 +45,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="HibernatingRhinos.Profiler.Appender, Version=3.0.0.0, Culture=neutral, PublicKeyToken=0774796e73ebf640, processorArchitecture=MSIL">
-      <HintPath>..\packages\NHibernateProfiler.Appender.3.0.3103.0\lib\HibernatingRhinos.Profiler.Appender.dll</HintPath>
+      <HintPath>..\packages\NHibernateProfiler.Appender.3.0.3105.0\lib\HibernatingRhinos.Profiler.Appender.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -280,6 +280,7 @@
     <Content Include="Images\Edit.png" />
     <Content Include="Images\ExpenceWallet.png" />
     <Content Include="Images\IncomeWallet.png" />
+    <Content Include="Images\Logo.png" />
     <Content Include="Images\plus-icon.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -354,6 +355,8 @@
     <Content Include="Views\Wallet\TransactionDisplay.cshtml" />
     <Content Include="Views\Wallet\WalletList.cshtml" />
     <Content Include="Views\Transaction\Edit.cshtml" />
+    <Content Include="Views\Wallet\Create.cshtml" />
+    <Content Include="Views\Wallet\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

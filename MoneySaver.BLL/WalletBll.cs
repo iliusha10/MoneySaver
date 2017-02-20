@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using MoneySaver.DTO.Objects;
 using MoneySaver.Domain;
+using MoneySaver.Factory;
 
 namespace MoneySaver.BLL
 {
@@ -67,5 +68,30 @@ namespace MoneySaver.BLL
             return _walletDal.GetUserWalletsName(accountId);
         }
 
+        public void SaveWallet(WalletDto dto, string username)
+        {
+            var account = _accountDal.GetAcountByName(username);
+            if (dto.DefaultWallet)
+            {
+                var defWalletDto = _walletDal.GetDefaultUserWallet(account.Id);
+                var defWallet = _Dal.GetById<Wallet>(defWalletDto.WalletID);
+                defWallet.AmendDefaultBit(false);
+                _Dal.Save<Wallet>(defWallet);
+            }
+            
+            var currency = _Dal.GetById<Currency>(dto.CurrencyID);
+            var walletType = _Dal.GetById<WalletType>(dto.WalletTypeId);
+            var wallet = WalletFactory.CreateWallet(account, currency, dto.Name, walletType, dto.DefaultWallet, dto.Amount);
+            _Dal.Save<Wallet>(wallet);
+        }
+
+
+        public WalletDto GetWallet(long id)
+        {
+            var wallet = _Dal.GetById<Wallet>(id);
+            var walletDto = Adapter.AdaptDomainToWalletDto(wallet);
+
+            return walletDto;
+        }
     }
 }
